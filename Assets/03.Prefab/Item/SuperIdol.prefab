@@ -4824,7 +4824,7 @@ GameObject:
   - component: {fileID: 4441837972973290965}
   - component: {fileID: 1082799512}
   m_Layer: 0
-  m_Name: Stone_Item
+  m_Name: SuperIdol
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4876,8 +4876,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf074047a02173b4da8f7ca9231394d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  data: {fileID: 11400000, guid: 4ddfee7e2398ef44da34ba916dccf962, type: 2}
-  dropableCount: 3
+  data: {fileID: 11400000, guid: 357844899f4c65847bc666db98e06e61, type: 2}
+  dropableCount: 2
 --- !u!1 &2936177697107050608
 GameObject:
   m_ObjectHideFlags: 0
