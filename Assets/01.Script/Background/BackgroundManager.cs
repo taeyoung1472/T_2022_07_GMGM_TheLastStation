@@ -24,9 +24,10 @@ public class BackgroundManager : MonoBehaviour
         for (int i = 0; i < 2; i++)
         {
             backgrounds[i].transform.Translate(Vector3.back * speed * Time.deltaTime);
+            UIManager.Instance.CurLength += speed * Time.deltaTime;
             if (backgrounds[i].transform.position.z < -168)
             {
-                backgrounds[i].transform.position = backgrounds[i == 0 ? 1 : 0].transform.position + new Vector3(0, 0, 165);
+                backgrounds[i].transform.position = backgrounds[i == 0 ? 1 : 0].transform.position + new Vector3(0, 0, 168);
                 backgrounds[i].Active(backgroundDatas[curBackgroundIdx].backgroundType);
                 curIndex++;
                 if (curIndex >= backgroundDatas[curBackgroundIdx].length)
@@ -36,6 +37,7 @@ public class BackgroundManager : MonoBehaviour
                     if (curBackgroundIdx > backgroundDatas.Count - 1)
                     {
                         isEnd = true;
+                        speed = 0;
                     }
                 }
             }

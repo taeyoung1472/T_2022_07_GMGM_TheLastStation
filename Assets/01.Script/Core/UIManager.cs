@@ -25,7 +25,7 @@ public class UIManager : MonoSingleTon<UIManager>
     [SerializeField] private Image checkPointAnchor;
     private float totalLength;
     private float curLength;
-    public float CurLength { set { curLength = value; } }
+    public float CurLength { get { return curLength; } set { curLength = value; } }
     #endregion
 
     public void Update()
@@ -66,6 +66,6 @@ public class UIManager : MonoSingleTon<UIManager>
 
     public void DisplayVirtualTrain()
     {
-        virtualTrainRect.anchoredPosition = new Vector2(curLength / trainProgressBar.rectTransform.sizeDelta.x, 0);
+        virtualTrainRect.anchoredPosition = new Vector2((curLength / (totalLength * 168)) * trainProgressBar.rectTransform.sizeDelta.x, 0);
     }
 }
