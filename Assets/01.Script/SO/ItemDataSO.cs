@@ -5,6 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "SO/ItemData")]
 public class ItemDataSO : ScriptableObject
 {
+    public int id;
     [Header("기본 재원")]
     public Sprite profileImage;
     public RareRate rareRate;
@@ -14,5 +15,12 @@ public class ItemDataSO : ScriptableObject
     public int maxStackAbleCount = 32;
     [Header("Drop 관련")]
     public int dropWeight = 1;
-    public Item prefab;
+    public enum ItemType
+    {
+        Production,
+        Food
+    }
+    public ItemType itemType;
+
+
 }
