@@ -3,17 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class PoolManager : MonoBehaviour
+public class PoolManager : MonoSingleTon<PoolManager>
 {
-    public static PoolManager instance;//싱글톤
     [SerializeField] private PoolDataSO poolData;//풀링 데이터
     Dictionary<PoolType, LocalPoolManager> localPoolDic = new Dictionary<PoolType, LocalPoolManager>();//PoolType으로 검색하기 위한 딕셔너리
     private void Awake()
     {
-        if (instance == null)
-        {
-            instance = this;
-        }
         for (int i = 0; i < poolData.poolDatas.Length; i++)
         {
             GameObject obj = new GameObject();

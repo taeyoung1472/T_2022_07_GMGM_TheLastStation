@@ -24,6 +24,6 @@ public class ParticlePool : PoolAbleObject
     IEnumerator Wait()
     {
         yield return new WaitForSeconds(poolTime);
-        PoolManager.instance.Push(PoolType, gameObject);
+        PoolManager.Instance.Push(PoolType, gameObject);
     }
 }

@@ -2,10 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enviroment : MonoBehaviour, IDamageAble
+public class Enviroment : MonoBehaviour
 {
-    public void Damage(float amount, Vector3 orginPos = default, float force = 1)
+    [SerializeField] private SpriteButton[] spriteButton;
+    [SerializeField] private float offset;
+    public void Start()
     {
-
+        for (int i = 0; i < spriteButton.Length; i++)
+        {
+            spriteButton[i].transform.position = Vector3.up * offset + Vector3.up * transform.position.y;
+        }
+    }
+    public void FocusButton(SpriteButton targetBtn)
+    {
+        for (int i = 0; i < spriteButton.Length; i++)
+        {
+            spriteButton[i].gameObject.SetActive(false);
+        }
+        targetBtn.gameObject.transform.position = Vector3.up * offset;
     }
 }
