@@ -14,5 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   poolDatas:
   - poolType: 0
-    initCount: 0
-    poolAbleObject: {fileID: 0}
+    initCount: 10
+    poolAbleObject: {fileID: 8347010364092153133, guid: d6d0b3c3c27388040b7fd5b9820f9822, type: 3}
+  - poolType: 1
+    initCount: 10
+    poolAbleObject: {fileID: -3469814635430157608, guid: ec448ab0333c4ae4cbb75526e9d6be75, type: 3}
+  - poolType: 2
+    initCount: 10
+    poolAbleObject: {fileID: 953104607645644456, guid: 04aec38569fa8304ca44d0d16d3a4399, type: 3}

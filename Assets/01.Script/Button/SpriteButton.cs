@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,6 +9,7 @@ public class SpriteButton : MonoBehaviour
     [SerializeField] private UnityEvent<Character> buttonEvent;
     [Range(0, 20)][SerializeField] private float duration;
     [SerializeField] private Transform slider;
+    [SerializeField] private Transform sliderFill;
     [SerializeField] private bool isReset = false;
     Character usingCharacter;
     public Character UsingCharacter { get { return usingCharacter; } set { usingCharacter = value; } }
@@ -17,10 +19,15 @@ public class SpriteButton : MonoBehaviour
     public void Start()
     {
         curDur = duration;
+        if(curDur == 0)
+        {
+            slider.gameObject.SetActive(false);
+        }
     }
 
     public void Update()
     {
+        DisplaySlide();
         if (isUsing)
         {
             curDur -= Time.deltaTime;
@@ -34,7 +41,12 @@ public class SpriteButton : MonoBehaviour
                 UsingCharacter = null;
             }
         }
-        slider.transform.localScale = new Vector3(curDur / duration, 1, 1);
+    }
+
+    private void DisplaySlide()
+    {
+        if(duration == 0) return;
+        sliderFill.transform.localScale = new Vector3(curDur / duration, 1, 1);
     }
 
     public void UseStart()

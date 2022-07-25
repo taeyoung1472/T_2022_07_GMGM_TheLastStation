@@ -2,16 +2,16 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.AI;
+using Cinemachine;
 using UnityEngine;
 
-public class CameraController : MonoBehaviour
+public class CameraController : MonoSingleTon<CameraController>
 {
     #region 카메라 이동
     [Header("카메라 이동")]
     [SerializeField] private Vector2 camLimitScale;
     [SerializeField] private Vector2 camLimitCenter;
     [SerializeField] private float camMoveSpeed;
-    private Vector3 startSwipePos;
     private Vector2 moveDir;
     private float moveSpeed;
     private float moveGoal;
@@ -32,9 +32,12 @@ public class CameraController : MonoBehaviour
     [SerializeField] private LayerMask rayMask;
     [SerializeField] private LayerMask rayGroundMask;
     [SerializeField] private LayerMask mouseCheckMask;
-    public NavMeshAgent agent;
     RaycastHit hit;
     #endregion
+
+    [SerializeField] private ParticleSystem mouseParticle;
+    [SerializeField] private Transform vcamTarget;
+    [SerializeField] private CinemachineVirtualCamera vcam;
     Camera cam;
     public void Start()
     {
@@ -48,12 +51,18 @@ public class CameraController : MonoBehaviour
         InputHandle();
     }
 
+    public Vector3 GetMousePos()
+    {
+        Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+        if (Physics.Raycast(ray, out hit, 1000, mouseCheckMask))
+        {
+            return hit.point;
+        }
+        return Vector3.zero;
+    }
+
     private void InputHandle()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0))
-        {
-            ShootRay();
-        }
         if (Input.GetKeyDown(KeyCode.Mouse1))
         {
             isSwiping = true;
@@ -64,11 +73,13 @@ public class CameraController : MonoBehaviour
         }
     }
 
-    private void ShootRay()
+    public void ShootRay()
     {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Ray ray = cam.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out hit, 1000, rayMask))
         {
+            mouseParticle.transform.position = hit.point;
+            mouseParticle.Play();
             if (hit.transform.CompareTag("Character"))
             {
                 CharacterManager.Instance.ControllCharacter(hit.transform.GetComponent<Character>());
@@ -101,8 +112,8 @@ public class CameraController : MonoBehaviour
             float mouseX = Input.GetAxisRaw("Mouse X");
             float mouseY = Input.GetAxisRaw("Mouse Y");
 
-            moveDir.x = mouseX * -5;
-            moveDir.y = mouseY * -5;
+            moveDir.x = mouseX * -4;
+            moveDir.y = mouseY * -4;
 
             moveSpeed = camMoveSpeed;
         }
@@ -125,17 +136,17 @@ public class CameraController : MonoBehaviour
             moveSpeed = Mathf.Lerp(moveSpeed, moveGoal, Time.deltaTime * 2.5f);
         }
 
-        cam.transform.Translate(moveDir * moveSpeed * Time.deltaTime);
+        vcamTarget.transform.Translate(new Vector3(0, moveDir.y, moveDir.x) * moveSpeed * Time.deltaTime);
 
-        float h = Mathf.Clamp(cam.transform.position.z, camLimitCenter.x - camLimitScale.x * 0.5f, camLimitCenter.x + camLimitScale.x * 0.5f);
-        float v = Mathf.Clamp(cam.transform.position.y, camLimitCenter.y - camLimitScale.y * 0.5f, camLimitCenter.y + camLimitScale.y * 0.5f);
+        float h = Mathf.Clamp(vcamTarget.transform.position.z, camLimitCenter.x - camLimitScale.x * 0.5f, camLimitCenter.x + camLimitScale.x * 0.5f);
+        float v = Mathf.Clamp(vcamTarget.transform.position.y, camLimitCenter.y - camLimitScale.y * 0.5f, camLimitCenter.y + camLimitScale.y * 0.5f);
 
-        cam.transform.position = new Vector3(cam.transform.position.x, v, h);
+        vcamTarget.transform.position = new Vector3(0, v, h);
     }
 
     private void Zoom()
     {
-        cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, zoomGoal, Time.deltaTime * 5);
+        vcam.m_Lens.FieldOfView = Mathf.Lerp(vcam.m_Lens.FieldOfView, zoomGoal, Time.deltaTime * 5);
     }
 
     private IEnumerator ZoomInput()
@@ -148,7 +159,7 @@ public class CameraController : MonoBehaviour
             else zoomIndex--;
             zoomIndex = Mathf.Clamp(zoomIndex, 0, zoomValue.Length - 1);
             zoomGoal = zoomValue[zoomIndex];
-            if(zoomIndex < 3)
+            if(zoomIndex < zoomValue.Length - 1)
             {
                 cam.cullingMask = zoomCull;
             }

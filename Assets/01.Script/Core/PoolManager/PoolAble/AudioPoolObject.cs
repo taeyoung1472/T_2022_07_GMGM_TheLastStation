@@ -22,7 +22,7 @@ public class AudioPoolObject : PoolAbleObject
     /// <param name="clip"></param>
     /// <param name="volume"></param>
     /// <param name="pitch"></param>
-    public void Play(AudioClip clip, float volume = 1f, float pitch = 1f)
+    public void Play(AudioClip clip, float pitch = 1f, float volume = 1f)
     {
         source.Stop();
         source.clip = clip;
@@ -39,6 +39,6 @@ public class AudioPoolObject : PoolAbleObject
     IEnumerator WaitForPush(float time)
     {
         yield return new WaitForSeconds(time);
-        PoolManager.instance.Push(PoolType, gameObject);
+        PoolManager.Instance.Push(PoolType, gameObject);
     }
 }
