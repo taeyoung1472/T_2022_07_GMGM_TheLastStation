@@ -9,6 +9,7 @@ TagManager:
   - Character
   - Button
   - Door
+  - Train
   layers:
   - Default
   - TransparentFX
