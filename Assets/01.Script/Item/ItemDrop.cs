@@ -7,14 +7,20 @@ public class ItemDrop : MonoBehaviour
     [SerializeField] private int randomItemDropCount;
     [SerializeField] private ItemDataSO[] items;
 
+    private bool isOpened = false;
+
     public void Test()
     {
-        foreach (var item in items)
-            print($"{item.name}이 {item.prefab.dropableCount}개만큼 나왔다!");
-        for (int i = 0; i < randomItemDropCount; i++)
+        if (!isOpened)
         {
-            if(Generate()!=null)
-            print($"{Generate().name}이 나왔다!");
+            isOpened = true;
+            foreach (var item in items)
+                print($"{item.name}이 {item.prefab.dropableCount}개만큼 나왔다!");
+            for (int i = 0; i < randomItemDropCount; i++)
+            {
+                if (Generate() != null)
+                    print($"{Generate().name}이 나왔다!");
+            }
         }
     }
     public ItemDataSO Generate()
