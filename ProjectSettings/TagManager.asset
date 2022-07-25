@@ -8,6 +8,7 @@ TagManager:
   - MouseCheck
   - Character
   - Button
+  - Train
   layers:
   - Default
   - TransparentFX
