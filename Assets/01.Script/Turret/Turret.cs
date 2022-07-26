@@ -10,18 +10,25 @@ public class Turret : MonoBehaviour
     [SerializeField] private float delay;
     [SerializeField] private bool isControl = false;
     [SerializeField] private float rotSpeed = 5f;
-    float angle;
-    Camera cam;
-    int idx = 0;
+    private bool isShooting = false;
+    private float angle;
+    private int idx = 0;
     void Start()
     {
-        cam = Camera.main;
         StartCoroutine(Shoot());
     }
     void Update()
     {
         if (isControl)
         {
+            if (Input.GetKey(KeyCode.Mouse0))
+            {
+                isShooting = true;
+            }
+            else
+            {
+                isShooting = false;
+            }
             Vector3 pos = CameraController.Instance.GetMousePos();
             float angleGoal = Mathf.Atan2(pos.z - center.position.z, pos.y - center.position.y) * Mathf.Rad2Deg;
             if(angle < angleGoal)
@@ -36,13 +43,18 @@ public class Turret : MonoBehaviour
             center.eulerAngles = new Vector3(angle, 0, 0);
         }
     }
+    public void Controll()
+    {
+        isControl = true;
+    }
     IEnumerator Shoot()
     {
         while (true)
         {
-            yield return new WaitForSeconds(delay);
+            yield return new WaitUntil(() => isShooting);
             barrels[idx].Shoot(delay);
             idx = (idx + 1) % barrels.Length;
+            yield return new WaitForSeconds(delay);
         }
     }
 }

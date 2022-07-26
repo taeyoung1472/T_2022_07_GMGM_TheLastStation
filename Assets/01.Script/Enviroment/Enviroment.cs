@@ -10,7 +10,7 @@ public class Enviroment : MonoBehaviour
     {
         for (int i = 0; i < spriteButton.Length; i++)
         {
-            spriteButton[i].transform.position = Vector3.up * offset + Vector3.up * transform.position.y;
+            spriteButton[i].transform.position = new Vector3(0, offset + transform.position.y, transform.position.z);
         }
     }
     public void FocusButton(SpriteButton targetBtn)

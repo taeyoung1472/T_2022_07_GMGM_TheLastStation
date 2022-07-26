@@ -18,6 +18,13 @@ public class UIManager : MonoSingleTon<UIManager>
     [SerializeField] private GameObject dummyPanel;
     #endregion
 
+    #region 지도 UI 관련
+    [SerializeField] private GameObject mapPanel;
+    [SerializeField] private Image stationProfileTmp;
+    [SerializeField] private TextMeshProUGUI stationNameTmp;
+    [SerializeField] private TextMeshProUGUI stationDescTmp;
+    #endregion
+
     #region 진행도 관련
     [Header("진행도 관련")]
     [SerializeField] private RectTransform virtualTrainRect;
