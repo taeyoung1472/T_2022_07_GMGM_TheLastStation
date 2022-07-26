@@ -4825,7 +4825,7 @@ GameObject:
   - component: {fileID: 1082799512}
   - component: {fileID: 313814323610240598}
   m_Layer: 0
-  m_Name: SuperIdol
+  m_Name: Key
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4894,7 +4894,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: 357844899f4c65847bc666db98e06e61, type: 2}
-  dropableCount: 3
+  dropableCount: 1
 --- !u!1 &2936177697107050608
 GameObject:
   m_ObjectHideFlags: 0

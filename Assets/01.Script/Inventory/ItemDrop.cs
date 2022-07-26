@@ -6,8 +6,14 @@ public class ItemDrop : MonoBehaviour
 {
     [SerializeField] private int randomItemDropCount;
     [SerializeField] private ItemDataSO[] items;
+    private Door[] doors;
 
     private bool isOpened = false;
+
+    private void Start()
+    {
+        doors = FindObjectsOfType<Door>();
+    }
 
     public void Test()
     {
@@ -15,7 +21,14 @@ public class ItemDrop : MonoBehaviour
         {
             isOpened = true;
             foreach (var item in items)
+            {
                 print($"{item.name}이 {item.prefab.dropableCount}개만큼 나왔다!");
+                if(item.itemId == 100)
+                {
+                    foreach (var door in doors)
+                        door.IsHaveKey = true;
+                }
+            }
             for (int i = 0; i < randomItemDropCount; i++)
             {
                 if (Generate() != null)

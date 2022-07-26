@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.32701483, g: 0.2815784, b: 0.41662827, a: 1}
+  m_IndirectSpecularColor: {r: 0.3273415, g: 0.2819711, b: 0.41690004, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2272,6 +2272,7 @@ MonoBehaviour:
   characterCardDesc: {fileID: 486723655}
   characterCardProfile: {fileID: 1798878266}
   dummyPanel: {fileID: 1152101907}
+  virtualTrainRect: {fileID: 0}
   trainProgressBar: {fileID: 1798217985}
   checkPointAnchor: {fileID: 386423522}
 --- !u!1 &659735585 stripped
@@ -4720,7 +4721,6 @@ MonoBehaviour:
         m_CallState: 2
   duration: 10
   slider: {fileID: 874667935}
-  sliderFill: {fileID: 912950448}
   isReset: 0
 --- !u!1 &1006723664
 GameObject:
