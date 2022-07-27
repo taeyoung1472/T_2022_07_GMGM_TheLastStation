@@ -5,7 +5,6 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "SO/ItemData")]
 public class ItemDataSO : ScriptableObject
 {
-    public int id;
     [Header("기본 재원")]
     public Item prefab;
     public Sprite profileImage;
@@ -24,5 +23,17 @@ public class ItemDataSO : ScriptableObject
     }
     public ItemType itemType;
 
+    public bool IsStackable()
+    {
+        switch (itemType)
+        {
+            default:
+
+            case ItemType.Production:
+                return false;
+            case ItemType.Food:
+                return true; 
+        }
+    }
 
 }
