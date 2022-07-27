@@ -4823,6 +4823,7 @@ GameObject:
   - component: {fileID: 2936177697078721471}
   - component: {fileID: 4441837972973290965}
   - component: {fileID: 1082799512}
+  - component: {fileID: -4949072128259940130}
   m_Layer: 0
   m_Name: Stone_Item
   m_TagString: Untagged
@@ -4876,8 +4877,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf074047a02173b4da8f7ca9231394d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Items: []
+  ItemContent: {fileID: 0}
+  InventoryItem: {fileID: 0}
+  InventoryItems: []
+--- !u!114 &-4949072128259940130
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2936177697078721470}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e09464d37ac255b478f1b1a96892dd12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: 4ddfee7e2398ef44da34ba916dccf962, type: 2}
-  dropableCount: 3
+  dropableCount: 2
 --- !u!1 &2936177697107050608
 GameObject:
   m_ObjectHideFlags: 0

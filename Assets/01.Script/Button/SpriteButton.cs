@@ -9,7 +9,6 @@ public class SpriteButton : MonoBehaviour
     [SerializeField] private UnityEvent<Character> buttonEvent;
     [Range(0, 20)][SerializeField] private float duration;
     [SerializeField] private Transform slider;
-    [SerializeField] private Transform sliderFill;
     [SerializeField] private bool isReset = false;
     Character usingCharacter;
     public Character UsingCharacter { get { return usingCharacter; } set { usingCharacter = value; } }
@@ -46,7 +45,7 @@ public class SpriteButton : MonoBehaviour
     private void DisplaySlide()
     {
         if(duration == 0) return;
-        sliderFill.transform.localScale = new Vector3(curDur / duration, 1, 1);
+        slider.transform.localScale = new Vector3(curDur / duration, 1, 1);
     }
 
     public void UseStart()
