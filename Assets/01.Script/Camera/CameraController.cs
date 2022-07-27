@@ -92,6 +92,10 @@ public class CameraController : MonoSingleTon<CameraController>
             {
                 CharacterManager.Instance.Controll(ControllType.Act, GroundPos(hit), hit.transform.GetComponent<SpriteButton>());
             }
+            else if (hit.transform.GetComponent("AttackButton"))
+            {
+                CharacterManager.Instance.Controll(ControllType.Attack, GroundPos(hit), hit.transform.GetComponent<SpriteButton>());
+            }
         }
     }
 

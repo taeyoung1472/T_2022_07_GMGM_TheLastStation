@@ -90,6 +90,18 @@ public class Character : MonoBehaviour, IDamageAble
         attachingButton = button;
     }
 
+    public void Attack(Vector3 dir, SpriteButton button)
+    {
+        if(!(button is AttackButton))
+        {
+            Debug.LogError("이버튼은 공격용 버튼이 아님");
+            return;
+        }
+        Character target = button.GetComponent<AttackButton>().Character;
+        bool isRight = dir.z > transform.position.z;
+        print($"{target.Data.name}을 공격함");
+    }
+
     public void CancelAct()
     {
         attachingButton = null;

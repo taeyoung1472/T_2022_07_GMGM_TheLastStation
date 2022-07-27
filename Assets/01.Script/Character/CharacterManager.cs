@@ -33,6 +33,7 @@ public class CharacterManager : MonoSingleTon<CharacterManager>
                 controllingCharacter.CancelAct();
                 break;
             case ControllType.Attack:
+                controllingCharacter.Attack(orderPos, button);
                 break;
             default:
                 break;

@@ -10,6 +10,7 @@ TagManager:
   - Button
   - Door
   - Train
+  - AttackButton
   layers:
   - Default
   - TransparentFX
