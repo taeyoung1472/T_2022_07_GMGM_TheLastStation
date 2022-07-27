@@ -21,18 +21,20 @@ public class InventoryHandler : MonoBehaviour
     {
         if (itemsDic.ContainsKey(itemDataSO))//이미 아이템이 있는경우
         {
-            if (itemDataSO.maxStackAbleCount > itemsDic[itemDataSO].Amount)//만약 쌓일수 있는 여유공간이 있으면
+            if (itemDataSO.maxStackAbleCount > itemsDic[itemDataSO].items[0].Amount)//만약 쌓일수 있는 여유공간이 있으면
             {
-                itemsDic[itemDataSO].Amount++;
+                itemsDic[itemDataSO].items[0].Amount += 32;
             }
             else
             {
+                itemsDic[itemDataSO].items.Add(new LocalItem(itemDataSO, Instantiate(InventoryItem, ItemContent)));
+                //이거는 List에다가 Add하면 될듯
                 //추가해야지 마크에서 아이템 64게먹고 또먹을려고 하면 하나 더 늘잖아 근데 이건 나중에 생각해보고
             }
         }
         else//아닌경우
         {
-            itemsDic.Add(itemDataSO, new VirtualItem(itemDataSO, Instantiate(InventoryItem, ItemContent)));
+            itemsDic.Add(itemDataSO, new VirtualItem( itemDataSO, Instantiate(InventoryItem, ItemContent)));
         }
         #region Legarcy
         /*if (itemDataSO.IsStackable())//필요 없을듯
@@ -74,7 +76,10 @@ else
     }
     public void Remove(ItemDataSO itemDataSO)
     {
-        Destroy(itemsDic[itemDataSO].uiContent);
+        foreach (LocalItem item in itemsDic[itemDataSO].items)
+        {
+            Destroy(item.uiContent);
+        }
         itemsDic.Remove(itemDataSO);//된거같음 
     }
 
@@ -105,8 +110,18 @@ else
 }
 public class VirtualItem
 {
-    //제작하고 음식 아마? 일다
     public VirtualItem(ItemDataSO _data, GameObject _uiContent)
+    {
+        items.Add(new LocalItem(_data, _uiContent));
+    }
+    public List<LocalItem> items = new List<LocalItem>();//이제 이게차면은 앞에서부터 차게할지 뭐 그런게 있는데 일단 이렇게 해두고 내일 보자
+    //이렇게 2중 클레스가 되는 이유가  Dictionary니까 Key값 중복이 불가능해 근데 인벤토리는 중복될수 있잖아 마크처럼
+    //그러니까 이런식으로 Key값에 대응하는 VirtualItem과 그것이 관리하는 LocalItem이 있는거임이거 어페런스 가지고
+}
+public class LocalItem
+{
+    //제작하고 음식 아마? 일다
+    public LocalItem(ItemDataSO _data, GameObject _uiContent)
     {
         data = _data;
         uiContent = _uiContent;
@@ -118,12 +133,15 @@ public class VirtualItem
         amountText = itemAmout;
     }//이게 만들때잖아 그러니까 Data 넣어주고 이게 생성자를 호출해야지 ㅎ
     public ItemDataSO data;
-    private int amount = 1;//일단 내가볼땐 amount 초기가ㅄ이 0이
-    public int Amount { get { return amount; } set
+    private int amount = 0;//일단 내가볼땐 amount 초기가ㅄ이 0이
+    public int Amount
+    {
+        get { return amount; }
+        set
         {
             amountText.SetText($"{value}");
             amount = value;
-        } 
+        }
     }
     public GameObject uiContent;
     TextMeshProUGUI amountText = null;//잘했어
