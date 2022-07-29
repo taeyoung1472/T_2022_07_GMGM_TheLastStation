@@ -14,15 +14,15 @@ public class Door : MonoBehaviour
     {
         if (!isLock)
         {
-            isOpen = !isOpen;
             if (isOpen)
             {
                 transform.DORotate(new Vector3(0, 0, 0), 0.5f);
             }
             else
             {
-                transform.DORotate(new Vector3(0, 90, 0), 0.5f);
+                transform.DORotate(new Vector3(0, -90, 0), 0.5f);
             }
+            isOpen = !isOpen;
         }
         else
         {
