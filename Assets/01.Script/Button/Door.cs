@@ -16,11 +16,11 @@ public class Door : MonoBehaviour
         {
             if (isOpen)
             {
-                transform.DORotate(new Vector3(0, 0, 0), 0.5f);
+                transform.DOLocalRotate(new Vector3(0, 0, 0), 0.5f);
             }
             else
             {
-                transform.DORotate(new Vector3(0, -90, 0), 0.5f);
+                transform.DOLocalRotate(new Vector3(0, -90, 0), 0.5f);
             }
             isOpen = !isOpen;
         }
