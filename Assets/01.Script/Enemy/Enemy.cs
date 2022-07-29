@@ -8,13 +8,14 @@ public class Enemy : MonoBehaviour, IDamageAble
     Transform trainT;
     Vector3 trainPos;
     Vector3 playerPos;
-
+    Rigidbody enemyRigid;
     bool isArrive;
     public GameObject projectile; //πﬂªÁ√º 
     RaycastHit hit;
 
     private void Start()
     {
+        enemyRigid = GetComponent<Rigidbody>();
         playerPos = transform.position;
         trainPos = trainT.position;
     }
@@ -57,7 +58,8 @@ public class Enemy : MonoBehaviour, IDamageAble
                     enemyMove= new Vector3(-4, 0, 0);
                     break;
             }
-            transform.Translate(enemyMove);
+            print(random);
+            enemyRigid.MovePosition(enemyRigid.position+enemyMove);
             Instantiate(projectile, transform.position, Quaternion.identity);
             yield return wait;
         }
