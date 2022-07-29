@@ -35,6 +35,8 @@ public class UIManager : MonoSingleTon<UIManager>
     public float CurLength { get { return curLength; } set { curLength = value; } }
     #endregion
 
+
+    float value = 0;
     public void Update()
     {
         DisplayVirtualTrain();
@@ -73,6 +75,7 @@ public class UIManager : MonoSingleTon<UIManager>
 
     public void DisplayVirtualTrain()
     {
+        value = curLength / (totalLength * 168);
         virtualTrainRect.anchoredPosition = new Vector2((curLength / (totalLength * 168)) * trainProgressBar.rectTransform.sizeDelta.x, 0);
     }
 }

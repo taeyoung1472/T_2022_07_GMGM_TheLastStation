@@ -30,18 +30,18 @@ public class Character : MonoBehaviour, IDamageAble
 
     public SpriteButton UsingButton { get { return usingButton; } set { usingButton = value; } }
 
-    public void Awake()
+    public virtual void Awake()
     {
         animator = transform.GetComponentInChildren<Animator>();
         agent = GetComponent<NavMeshAgent>();
     }
 
-    public void Start()
+    public virtual void Start()
     {
         speed = data.moveSpeed;
     }
 
-    public void Update()
+    public virtual void Update()
     {
         Animate();
         CheckDistance();
@@ -77,20 +77,20 @@ public class Character : MonoBehaviour, IDamageAble
         animator.SetBool(MoveHash, Vector3.Distance(agent.destination, transform.position) > 0.25 + agent.stoppingDistance);
     }
 
-    public void Move(Vector3 dir)
+    public virtual void Move(Vector3 dir)
     {
         agent.SetDestination(dir);
         actAction = null;
         isAttaching = true;
     }
 
-    public void Act(Action callBackAction, SpriteButton button)
+    public virtual void Act(Action callBackAction, SpriteButton button)
     {
         actAction = callBackAction;
         attachingButton = button;
     }
 
-    public void Attack(Vector3 dir, SpriteButton button)
+    public virtual void Attack(Vector3 dir, SpriteButton button)
     {
         if(!(button is AttackButton))
         {
@@ -98,6 +98,7 @@ public class Character : MonoBehaviour, IDamageAble
             return;
         }
         Character target = button.GetComponent<AttackButton>().Character;
+        print(dir);
         bool isRight = dir.z > transform.position.z;
         print($"{target.Data.name}을 공격함");
     }

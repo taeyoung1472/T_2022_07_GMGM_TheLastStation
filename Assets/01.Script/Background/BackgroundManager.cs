@@ -16,8 +16,30 @@ public class BackgroundManager : MonoBehaviour
     private void Start()
     {
         backgrounds[0].Active(backgroundDatas[curBackgroundIdx].backgroundType);
-        UIManager.Instance.ProductProgressBar(backgroundDatas.ToArray());
         curIndex++;
+        if (curIndex >= backgroundDatas[curBackgroundIdx].length)
+        {
+            curIndex = 0;
+            curBackgroundIdx++;
+            if (curBackgroundIdx > backgroundDatas.Count - 1)
+            {
+                isEnd = true;
+                speed = 0;
+            }
+        }
+        backgrounds[1].Active(backgroundDatas[curBackgroundIdx].backgroundType);
+        curIndex++;
+        if (curIndex >= backgroundDatas[curBackgroundIdx].length)
+        {
+            curIndex = 0;
+            curBackgroundIdx++;
+            if (curBackgroundIdx > backgroundDatas.Count - 1)
+            {
+                isEnd = true;
+                speed = 0;
+            }
+        }
+        UIManager.Instance.ProductProgressBar(backgroundDatas.ToArray());
     }
     private void Update()
     {
@@ -27,7 +49,6 @@ public class BackgroundManager : MonoBehaviour
             UIManager.Instance.CurLength += speed * Time.deltaTime;
             if (backgrounds[i].transform.position.z < -168)
             {
-                backgrounds[i].transform.position = backgrounds[i == 0 ? 1 : 0].transform.position + new Vector3(0, 0, 168);
                 backgrounds[i].Active(backgroundDatas[curBackgroundIdx].backgroundType);
                 curIndex++;
                 if (curIndex >= backgroundDatas[curBackgroundIdx].length)
@@ -40,6 +61,17 @@ public class BackgroundManager : MonoBehaviour
                         speed = 0;
                     }
                 }
+            }
+        }
+    }
+
+    private void LateUpdate()
+    {
+        for (int i = 0; i < 2; i++)
+        {
+            if (backgrounds[i].transform.position.z < -168)
+            {
+                backgrounds[i].transform.position = backgrounds[i == 0 ? 1 : 0].transform.position + new Vector3(0, 0, 168);
             }
         }
     }
