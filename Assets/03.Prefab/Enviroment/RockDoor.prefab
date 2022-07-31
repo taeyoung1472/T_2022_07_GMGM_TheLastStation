@@ -1093,8 +1093,8 @@ MonoBehaviour:
   IsHaveKey: 0
   isLock: 1
   btnSprites:
-  - {fileID: 21300000, guid: 74ea175e8a66d462094885109d16d8d6, type: 3}
-  - {fileID: 21300000, guid: 8382b74377f3849a19cba4826c9efc90, type: 3}
+  - {fileID: 21300000, guid: ae2b7ff3ef06844fc9854cfe7b1b10ad, type: 3}
+  - {fileID: 21300000, guid: 452c82a6ddb8a4af5ac8b363531e2638, type: 3}
   doorBtn: {fileID: 8859836525660530875}
 --- !u!1 &8859836525923319433
 GameObject:
