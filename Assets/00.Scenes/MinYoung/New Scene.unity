@@ -5435,18 +5435,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 950090505}
-        m_TargetAssemblyTypeName: InventoryHandler, Assembly-CSharp
-        m_MethodName: ListItems
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
 --- !u!114 &853821803
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5521,7 +5509,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemContent: {fileID: 985792559}
   InventoryItem: {fileID: 7093766225652127572, guid: d2a54fd78ca584041babe21fdda421ff, type: 3}
-  InventoryItems: []
+  testSO: {fileID: 11400000, guid: 4ddfee7e2398ef44da34ba916dccf962, type: 2}
 --- !u!4 &950090506
 Transform:
   m_ObjectHideFlags: 0
