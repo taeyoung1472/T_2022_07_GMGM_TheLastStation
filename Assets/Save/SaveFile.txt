@@ -1,0 +1,4 @@
+﻿{
+    "hasSawTrail": true,
+    "curStationIndex": 0
+}

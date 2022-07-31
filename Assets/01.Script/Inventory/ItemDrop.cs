@@ -6,12 +6,14 @@ public class ItemDrop : MonoBehaviour
 {
     [SerializeField] private int randomItemDropCount;
     [SerializeField] private ItemDataSO[] items;
+    SpriteButton spriteButtonChild;
     private Door[] doors;
 
     private bool isOpened = false;
 
     private void Start()
     {
+        spriteButtonChild = GetComponentInChildren<SpriteButton>();
         doors = FindObjectsOfType<Door>();
     }
 
@@ -23,7 +25,7 @@ public class ItemDrop : MonoBehaviour
             foreach (var item in items)
             {
                 print($"{item.name}이 {item.prefab.dropableCount}개만큼 나왔다!");
-                if(item.itemId == 100)
+                if(item.itemId == 100)//열쇠일 때
                 {
                     foreach (var door in doors)
                         door.IsHaveKey = true;
@@ -34,6 +36,7 @@ public class ItemDrop : MonoBehaviour
                 if (Generate() != null)
                     print($"{Generate().name}이 나왔다!");
             }
+            spriteButtonChild.gameObject.SetActive(false);
         }
     }
     public ItemDataSO Generate()
