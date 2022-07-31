@@ -6,7 +6,7 @@ using UnityEngine;
 public class AudioPoolObject : PoolAbleObject
 {
     [SerializeField] private AudioSource source;
-    private float stdPitch;
+    //private float stdPitch;
     public override void Init_Pop()
     {
         //DoNothing
@@ -28,17 +28,17 @@ public class AudioPoolObject : PoolAbleObject
         source.clip = clip;
         source.volume = volume;
         source.pitch = pitch;
-        stdPitch = pitch;
+        //stdPitch = pitch;
         source.Play();
         StartCoroutine(WaitForPush(source.clip.length * 1.05f));
     }
     public void Update()
     {
-        source.pitch = stdPitch * (1 + (Time.timeScale - 1) * 0.5f);
+        //source.pitch = stdPitch * (1 + (Time.timeScale - 1) * 0.5f);
     }
     IEnumerator WaitForPush(float time)
     {
-        yield return new WaitForSeconds(time);
+        yield return new WaitForSecondsRealtime(time);
         PoolManager.Instance.Push(PoolType, gameObject);
     }
 }
