@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 163802639609809711}
+  - component: {fileID: 1841504475012019232}
   m_Layer: 0
   m_Name: ItemBox
   m_TagString: Untagged
@@ -34,6 +35,23 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1841504475012019232
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 163802639609809710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb5ee8d2916eab446920d6f4d3aa8d9a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  randomItemDropCount: 5
+  items:
+  - {fileID: 11400000, guid: 4ddfee7e2398ef44da34ba916dccf962, type: 2}
+  - {fileID: 11400000, guid: 357844899f4c65847bc666db98e06e61, type: 2}
+  - {fileID: 11400000, guid: 37d8939c5adbc724987219ee2372726b, type: 2}
 --- !u!1 &163802640613333106
 GameObject:
   m_ObjectHideFlags: 0
@@ -46,7 +64,6 @@ GameObject:
   - component: {fileID: 163802640616420732}
   - component: {fileID: 163802640615391498}
   - component: {fileID: 192656108323022988}
-  - component: {fileID: 163802640613235590}
   m_Layer: 0
   m_Name: Box
   m_TagString: Untagged
@@ -133,23 +150,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.000446, y: 1.0004461, z: 1.0004462}
   m_Center: {x: 0, y: 0.50264597, z: -0.000000059604645}
---- !u!114 &163802640613235590
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 163802640613333106}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb5ee8d2916eab446920d6f4d3aa8d9a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  randomItemDropCount: 5
-  items:
-  - {fileID: 11400000, guid: 4ddfee7e2398ef44da34ba916dccf962, type: 2}
-  - {fileID: 11400000, guid: 357844899f4c65847bc666db98e06e61, type: 2}
-  - {fileID: 11400000, guid: 37d8939c5adbc724987219ee2372726b, type: 2}
 --- !u!1 &163802640903102279
 GameObject:
   m_ObjectHideFlags: 0
@@ -309,7 +309,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.11320752, g: 0.11320752, b: 0.11320752, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -513,7 +513,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 0.3301887, g: 0.3301887, b: 0.3301887, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -551,7 +551,7 @@ MonoBehaviour:
   buttonEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 163802640613235590}
+      - m_Target: {fileID: 1841504475012019232}
         m_TargetAssemblyTypeName: ItemDrop, Assembly-CSharp
         m_MethodName: Test
         m_Mode: 1

@@ -9,6 +9,8 @@ public class Door : MonoBehaviour
     public bool IsHaveKey = false;
     private bool isOpen = false;
     [SerializeField] private bool isLock = false;
+    [SerializeField] private Sprite[] btnSprites;
+    [SerializeField] private GameObject doorBtn;
 
     public void Control()
     {
@@ -30,6 +32,7 @@ public class Door : MonoBehaviour
             {
                 isLock = false;
                 Control();
+                doorBtn.GetComponent<SpriteRenderer>().sprite = btnSprites[1];
             }
             else
                 print("ø≠ºË « ø‰«‘");

@@ -12,6 +12,7 @@ public class SpriteButton : MonoBehaviour
     [SerializeField] private bool isReset = false;
     Character usingCharacter;
     public Character UsingCharacter { get { return usingCharacter; } set { usingCharacter = value; } }
+    public float Duration { get { return duration; } set { duration = value; } }
     private float curDur;
     private bool isUsing;
 
