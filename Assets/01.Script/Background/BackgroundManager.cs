@@ -18,22 +18,13 @@ public class BackgroundManager : MonoBehaviour
     [SerializeField] private float farSpeedValue;
 
     bool isEnd = false;
+    bool isEndLate = false;
+    bool isEndPlace = false;
     int curIndex;
     int curBackgroundIdx;
     private void Start()
     {
-        backgrounds[0].Active(backgroundDatas[curBackgroundIdx].backgroundType);
-        curIndex++;
-        if (curIndex >= backgroundDatas[curBackgroundIdx].length)
-        {
-            curIndex = 0;
-            curBackgroundIdx++;
-            if (curBackgroundIdx > backgroundDatas.Count - 1)
-            {
-                isEnd = true;
-                speed = 0;
-            }
-        }
+        backgrounds[0].Active(BackgroundType.Start);
         backgrounds[1].Active(backgroundDatas[curBackgroundIdx].backgroundType);
         curIndex++;
         if (curIndex >= backgroundDatas[curBackgroundIdx].length)
@@ -56,6 +47,17 @@ public class BackgroundManager : MonoBehaviour
             UIManager.Instance.CurLength += speed * Time.deltaTime;
             if (backgrounds[i].transform.position.z < -192)
             {
+                if (isEnd)
+                {
+                    if (isEndPlace)
+                    {
+                        GameManager.Instance.LoadStation();
+                        speed = 0;
+                        return;
+                    }
+                    backgrounds[i].Active(BackgroundType.End);
+                    continue;
+                }
                 backgrounds[i].Active(backgroundDatas[curBackgroundIdx].backgroundType);
                 curIndex++;
                 if (curIndex >= backgroundDatas[curBackgroundIdx].length)
@@ -65,7 +67,6 @@ public class BackgroundManager : MonoBehaviour
                     if (curBackgroundIdx > backgroundDatas.Count - 1)
                     {
                         isEnd = true;
-                        speed = 0;
                     }
                 }
             }
@@ -84,11 +85,18 @@ public class BackgroundManager : MonoBehaviour
     {
         for (int i = 0; i < 2; i++)
         {
-            if (backgrounds[i].transform.position.z < -192)
+            if (backgrounds[i].transform.position.z < -192 && !isEndPlace)
             {
+                if (isEndLate)
+                {
+                    if (backgrounds[i].transform.position.z < -192 && !isEndPlace)
+                        isEndPlace = true;
+                }
                 backgrounds[i].transform.position = backgrounds[i == 0 ? 1 : 0].transform.position + new Vector3(0, 0, 192);
             }
         }
+        isEndLate = isEnd;
+        #region Áß, ¿ø°æ
         for (int i = 0; i < 2; i++)
         {
             if (backgroundsMiddle[i].transform.position.z < -300)
@@ -103,6 +111,7 @@ public class BackgroundManager : MonoBehaviour
                 backgroundsFar[i].transform.position = backgroundsFar[i == 0 ? 1 : 0].transform.position + new Vector3(0, 0, 300);
             }
         }
+        #endregion
     }
 }
 [Serializable]
@@ -117,4 +126,6 @@ public enum BackgroundType
     Wood,
     Tunnel,
     Country,
+    Start,
+    End
 }

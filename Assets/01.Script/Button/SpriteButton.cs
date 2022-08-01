@@ -9,6 +9,7 @@ public class SpriteButton : MonoBehaviour
     [SerializeField] private UnityEvent<Character> buttonEvent;
     [Range(0, 20)][SerializeField] private float duration;
     [SerializeField] private Transform slider;
+    [SerializeField] private Transform slider_Fill;
     [SerializeField] private bool isReset = false;
     Character usingCharacter;
     public Character UsingCharacter { get { return usingCharacter; } set { usingCharacter = value; } }
@@ -23,6 +24,7 @@ public class SpriteButton : MonoBehaviour
         {
             slider.gameObject.SetActive(false);
         }
+        slider_Fill = slider.Find("Fill");
     }
 
     public void Update()
@@ -46,7 +48,7 @@ public class SpriteButton : MonoBehaviour
     private void DisplaySlide()
     {
         if(duration == 0) return;
-        slider.transform.localScale = new Vector3(curDur / duration, 1, 1);
+        slider_Fill.transform.localScale = new Vector3(curDur / duration, 1, 1);
     }
 
     public void UseStart()

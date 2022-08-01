@@ -45,7 +45,6 @@ public class Car : MonoBehaviour
             }
             else
             {
-                print($"¼Óµµ : {(transform.position - prevPos).magnitude}");
                 if ((transform.position - prevPos).magnitude == 0)
                 {
                     engineSource.volume = 0;
