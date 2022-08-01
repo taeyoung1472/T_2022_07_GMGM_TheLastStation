@@ -48,13 +48,16 @@ public class UIManager : MonoSingleTon<UIManager>
 
     #region 제작 UI 관련
     [Header("제작 UI 관련")]
+    [SerializeField] private ItemCraft[] itemCraft;
+    [SerializeField] private GameObject itemCraftPanel;
+    [SerializeField] private TextMeshProUGUI craftTableNameTMP;
     [SerializeField] private TextMeshProUGUI craftItemNameTMP;
     [SerializeField] private TextMeshProUGUI craftItemDescTMP;
     [SerializeField] private TextMeshProUGUI craftItemResourceTMP;
     [SerializeField] private Image craftItemProfile;
     [SerializeField] private Color craftAbleColor;
     [SerializeField] private Color craftDisAbleColor;
-    [SerializeField] private CraftDataSO craftDataSO;
+    private bool isActiveCraftPanel;
     #endregion
 
     #region 사운드 관련
@@ -68,10 +71,6 @@ public class UIManager : MonoSingleTon<UIManager>
     public void Update()
     {
         DisplayVirtualTrain();
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            SetCraftTableUI(craftDataSO);
-        }
     }
 
     public void SetCharacterCardInfo(CharacterData data)
@@ -137,9 +136,27 @@ public class UIManager : MonoSingleTon<UIManager>
         OnOffSound(isActiveInventory);
     }
 
-    public void ActiveCraftTable(string name, CraftDataSO[] craftDatas)
+    public void ActiveCraftTable()
     {
+        isActiveCraftPanel = !isActiveCraftPanel;
+        itemCraftPanel.SetActive(isActiveCraftPanel);
+        ActiveTime(!isActiveCraftPanel);
+        OnOffSound(isActiveCraftPanel);
+    }
 
+    public void SetCraftTable(string name, CraftDataSO[] craftDatas)
+    {
+        craftTableNameTMP.text = name;
+        int i = 0;
+        SetCraftTableUI(craftDatas[0]);
+        for (i = 0; i < craftDatas.Length; i++)
+        {
+            itemCraft[i].Set(craftDatas[i]);
+        }
+        for (int j = i; j < 12; j++)
+        {
+            itemCraft[j].Set(null);
+        }
     }
     
     public void SetCraftTableUI(CraftDataSO data)
