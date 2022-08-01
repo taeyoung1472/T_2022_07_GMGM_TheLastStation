@@ -5,6 +5,10 @@ TagManager:
   serializedVersion: 2
   tags:
   - Shootable
+  - Button
+  - Character
+  - Undefined
+  - Train
   layers:
   - Default
   - TransparentFX

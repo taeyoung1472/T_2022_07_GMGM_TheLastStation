@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour, IDamageAble
 {
+
+    int i=0;
     public Transform shootRay;
     [SerializeField]
     Transform TargetTransform;
@@ -12,28 +14,42 @@ public class Enemy : MonoBehaviour, IDamageAble
     Vector3 trainPos;
     Vector3 playerPos;
     Vector3 move;
+    Vector3 destination=Vector3.zero;
 
+    Vector3 goPlace = Vector3.zero;
     Rigidbody enemyRigid;
     Animator enemyAni;
 
-    bool isArrive;
-    bool isMove;
+    [SerializeField]
+    AudioClip fireSound;
+    AudioSource enemyAudio;
 
-    float fireelay = 0.3f;
+    bool isArrive;
+    bool isMove = false;
+    bool isRandom = true;
+    float timera = 0;
+    float timer = 0;
+    [SerializeField]
+    float fireelay = 0.3f; //발사 지연 시간
+    [SerializeField]
+    float moveSpeed = 1f; // 움직이는 속도
     float lastFire;
     public GameObject projectile; //발사체 
     RaycastHit hit;
-
+    
     private void Start()
     {
+        isRandom = true;
+        enemyAudio = GetComponent<AudioSource>();
         lastFire = 0;
         enemyAni = GetComponent<Animator>();
         enemyRigid = GetComponent<Rigidbody>();
         playerPos = transform.position;
         trainPos = TargetTransform.position;
     }
-    private void FixedUpdate()
+    private void Update()
     {
+        print(destination);
         playerPos.x = Mathf.Lerp(transform.position.x, TargetTransform.position.x, Time.deltaTime);
         if (Mathf.Abs(transform.position.x - TargetTransform.position.x) < 0.1f)
         {
@@ -41,13 +57,15 @@ public class Enemy : MonoBehaviour, IDamageAble
         }
         if (!isArrive)
         {
-            transform.position = Vector3.Lerp(playerPos, trainPos, Time.deltaTime / 3);
+            transform.position = Vector3.Lerp(playerPos, trainPos, Time.deltaTime * moveSpeed);
         }
 
         if (Physics.Raycast(shootRay.position, transform.forward, out hit, 10) && isArrive)
         {
+
             if (hit.transform.gameObject.CompareTag("Train"))
             {
+                print("부딫힘");
                 Attack();
             }
         }
@@ -57,44 +75,82 @@ public class Enemy : MonoBehaviour, IDamageAble
 
     void Attack()
     {
-    
+ //움직일때 
         if (isMove)
         {
-            float timer = 0;
-            timer += Time.deltaTime;
-            float i = Random.Range(0, 1f);
-            if (i == 0)
+            if(isRandom )
             {
-                move = new Vector3(5, 0, 0);
+             i = Random.Range(0, 2);
+                if(i==0)
+                {
+                    destination = transform.position + goPlace;
+                }
+                else if(i==1)
+                {
+                    destination = transform.position - goPlace;
+                }
+                isRandom = false;
+                
             }
-            if (i == 1)
+           timera+=Time.deltaTime;
+            if(i==0)
             {
-                move = new Vector3(-5, 0, 0);
+                transform.position = Vector3.MoveTowards(transform.position, destination, Time.deltaTime * moveSpeed);   
             }
-            enemyAni.SetBool("IsAttack", false);
-            enemyRigid.MovePosition(enemyRigid.position + move);
-            if(timer >3f)
+            else if(i==1)
             {
-                isMove=false;
+                transform.position = Vector3.MoveTowards(transform.position, destination, Time.deltaTime * moveSpeed); 
             }
+
+            if (timera >= 3)
+            {
+                timera = 0;
+                isMove = false;
+                isRandom = true;
+            }
+
         }
-        else
+        // 공격할때 
+        else if (!isMove)
         {
-            enemyAni.SetBool("IsAttack",true);
-            ShootFire();  
-            if(enemyAni.GetCurrentAnimatorStateInfo(0).IsName("FlyFire")&&enemyAni.GetCurrentAnimatorStateInfo(0).normalizedTime>=0.99f)
+            enemyAni.SetBool("IsAttack", true);
+            if (enemyAudio.isPlaying)
             {
-                isMove = true;
-            }    
+                print("음악 키기");
+                ShootFire();
+            }
+            else
+            {
+
+                ShootFire();
+                enemyAudio.PlayOneShot(fireSound);
+
+            }
         }
     }
     void ShootFire()
     {
-        if(Time.time>lastFire+fireelay)
+        timer += Time.deltaTime;
+        if (Time.time > lastFire + fireelay)
         {
+
+            enemyAudio.PlayOneShot(fireSound);
             lastFire = Time.time;
-        Instantiate(projectile, firePos.position, Quaternion.identity);
+            Instantiate(projectile, firePos.position, Quaternion.identity);
+
+            if (timer >= 1.5f)
+            {
+                isMove = true;
+                enemyAni.SetBool("IsAttack", false);
+                Invoke("StopAudio", 1f);
+                timer = 0;
+
+            }
         }
+    }
+    void StopAudio()
+    {
+        enemyAudio.Stop();
     }
 
 
