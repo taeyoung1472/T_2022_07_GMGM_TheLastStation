@@ -16,4 +16,9 @@ public class ExitButton : MonoBehaviour
     {
         exitPanel.SetActive(true);
     }
+
+    public void OnClickMumurBtn()
+    {
+        exitPanel.SetActive(false);
+    }
 }
