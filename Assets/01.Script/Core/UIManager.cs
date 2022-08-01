@@ -60,6 +60,11 @@ public class UIManager : MonoSingleTon<UIManager>
     private bool isActiveCraftPanel;
     #endregion
 
+    #region 조종 UI 관련
+    [SerializeField] private GameObject controllPanel;
+    [SerializeField] private bool isActiveControllPanel;
+    #endregion
+
     #region 사운드 관련
     [Header("사운드 관련")]
     [SerializeField] private AudioClip openClip;
@@ -142,6 +147,12 @@ public class UIManager : MonoSingleTon<UIManager>
         itemCraftPanel.SetActive(isActiveCraftPanel);
         ActiveTime(!isActiveCraftPanel);
         OnOffSound(isActiveCraftPanel);
+    }
+
+    public void ActiveControllPanel()
+    {
+        isActiveControllPanel = !isActiveControllPanel;
+        controllPanel.SetActive(isActiveControllPanel);
     }
 
     public void SetCraftTable(string name, CraftDataSO[] craftDatas)

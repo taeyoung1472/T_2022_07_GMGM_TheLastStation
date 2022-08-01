@@ -4,12 +4,13 @@ using UnityEngine;
 using System;
 using Random = UnityEngine.Random;
 
-public class BackgroundManager : MonoBehaviour
+public class BackgroundManager : MonoSingleTon<BackgroundManager>
 {
     [Header("Main")]
     [SerializeField] private List<Background> backgrounds;
     [SerializeField] private List<BackgroundData> backgroundDatas;
-    [SerializeField] private float speed; 
+    [SerializeField] private float speed;
+    public float Speed { get { return speed; } set { speed = value; } }
 
     [Header("Serve")]
     [SerializeField] private List<Transform> backgroundsMiddle;
