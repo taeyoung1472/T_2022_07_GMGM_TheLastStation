@@ -16,11 +16,6 @@ public class UIManager : MonoSingleTon<UIManager>
     private CharacterData prevData;
     #endregion
 
-    #region 제작 UI 관련
-    [Header("더미 UI 관련")]
-    [SerializeField] private GameObject dummyPanel;
-    #endregion
-
     #region 지도 UI 관련
     [Header("지도 UI 관련")]
     [SerializeField] private GameObject mapPanel;
@@ -95,11 +90,6 @@ public class UIManager : MonoSingleTon<UIManager>
         prevData = data;
     }
 
-    public void DisplayWorkStation(bool isDisplay)
-    {
-        dummyPanel.SetActive(isDisplay);
-    }
-
     public void ProductProgressBar(BackgroundData[] datas)
     {
         totalLength = 0;
@@ -121,6 +111,7 @@ public class UIManager : MonoSingleTon<UIManager>
 
     public void DisplayVirtualTrain()
     {
+        if (virtualTrainRect == null) return;
         value = curLength / (totalLength * 192);
         virtualTrainRect.anchoredPosition = new Vector2((curLength / (totalLength * 192)) * trainProgressBar.rectTransform.sizeDelta.x, 0);
     }
