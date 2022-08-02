@@ -7,8 +7,11 @@ TagManager:
   - Shootable
   - Button
   - Character
-  - Undefined
   - Train
+  - MouseCheck
+  - Collide
+  - Door
+  - AttackButton
   layers:
   - Default
   - TransparentFX
@@ -16,15 +19,15 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
+  - ForeTrain
+  - MouseCheck
   - Lighting
   - Ground
   - Postprocessing
-  - 
-  - 
+  - Character
+  - Button
   - Icon
-  - 
+  - Enemy
   - 
   - 
   - 
