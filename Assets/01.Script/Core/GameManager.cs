@@ -8,22 +8,23 @@ public class GameManager : MonoSingleTon<GameManager>
     #region ¾À
     public void LoadMenu()
     {
-        SceneManager.LoadScene(0);
+        LoadingSceneManager.LoadScene(0);
+        //SceneManager.LoadScene(0);
     }
     public void LoadGame()
     {
         if (!JsonManager.Instance.Data.hasSawTrail)
         {
-            SceneManager.LoadScene(3);
+            LoadingSceneManager.LoadScene(3);
         }
         else
         {
-            SceneManager.LoadScene(1);
+            LoadingSceneManager.LoadScene(1);
         }
     }
     public void LoadStation()
     {
-        SceneManager.LoadScene(2);
+        LoadingSceneManager.LoadScene(2);
     }
 
     public void ExitGame()

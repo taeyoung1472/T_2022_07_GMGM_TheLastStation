@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class LoadingSceneManager : MonoBehaviour
 {
-    public static string nextScene;
+    public static int nextScene;
     [SerializeField] Image progressBar;
 
     private void Start()
@@ -14,20 +14,23 @@ public class LoadingSceneManager : MonoBehaviour
         StartCoroutine(LoadScene());
     }
 
-    public static void LoadScene(string sceneName)
+    public static void LoadScene(int sceneIndex)
     {
-        nextScene = sceneName;
+        Time.timeScale = 1;
+        nextScene = sceneIndex;
         SceneManager.LoadScene("Loading");
     }
 
     IEnumerator LoadScene()
     {
         yield return null;
+        print($"¾À ¹Ù²Ù´ÂÁß : {nextScene}");
         AsyncOperation op = SceneManager.LoadSceneAsync(nextScene);
         op.allowSceneActivation = false;
         float timer = 0.0f;
         while (!op.isDone)
         {
+            print($"¾À ¹Ù²Ù´ÂÁß : {op.progress}");
             yield return null;
             timer += Time.deltaTime;
             if (op.progress < 0.9f)

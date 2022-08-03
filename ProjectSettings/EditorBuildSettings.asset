@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/00.Scenes/Trail.unity
     guid: 7ca4800ead9f44d4db6bd75fca0e5a2f
+  - enabled: 1
+    path: Assets/00.Scenes/GiJoo/Loading.unity
+    guid: f48ecaf4095574345b8894ebc5ebcc8e
   m_configObjects: {}

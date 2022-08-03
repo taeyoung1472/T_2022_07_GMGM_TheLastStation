@@ -6,43 +6,48 @@ using UnityEngine.UI;
 
 public class AudioController : MonoBehaviour
 {
-    [SerializeField]
-    Image soundimage;
-    [SerializeField]
-    AudioMixer audioMixer;
-    [SerializeField]
-    Slider audioSlider;
-    [SerializeField]
-    Sprite[] sprites;
-    void Start()
+    [SerializeField] private AudioMixer audioMixer;
+    [SerializeField] private Sprite[] sprites;
+
+    [Header("Master")]
+    [SerializeField] Image masterImage;
+    [SerializeField] Slider masterSlider;
+
+    [Header("BGM")]
+    [SerializeField] Image bgmImage;
+    [SerializeField] Slider bgmSlider;
+
+    [Header("Effect")]
+    [SerializeField] Image effectImage;
+    [SerializeField] Slider effectSlider;
+
+    public void Start()
     {
-        if (audioSlider.value == -14)
-            soundimage.sprite = sprites[0];
-        else if (-14 < audioSlider.value && audioSlider.value < -7)
-            soundimage.sprite = sprites[1];
-        else if (-7 <= audioSlider.value && audioSlider.value < 0)
-            soundimage.sprite = sprites[2];
-        else if (audioSlider.value == 7)
-            soundimage.sprite = sprites[3];
+        masterSlider.onValueChanged.AddListener(delegate { ChangeImageSprite(masterImage, masterSlider, "Master"); });
+        bgmSlider.onValueChanged.AddListener(delegate { ChangeImageSprite(bgmImage, bgmSlider, "Bgm"); });
+        effectSlider.onValueChanged.AddListener(delegate { ChangeImageSprite(effectImage, effectSlider, "Effect"); });
     }
 
-    // Update is called once per frame
-    void Update()
+    public void ChangeImageSprite(Image tgtImage, Slider tgtSlider, string str)
     {
-        
-        if (audioSlider.value == -14)
-            soundimage.sprite = sprites[0];
-        else if (-14 < audioSlider.value && audioSlider.value < -7)
-            soundimage.sprite = sprites[1];
-        else if (-7 <= audioSlider.value && audioSlider.value < 0)
-            soundimage.sprite = sprites[2];
-        else if (audioSlider.value == 7)
-            soundimage.sprite = sprites[3];
-    }
-    public void SoundControl()
-    {
-        float sound = audioSlider.value;
-        if (sound == -14) audioMixer.SetFloat("SoundSlider", -80);
-        else audioMixer.SetFloat("SoundSlider", sound);
+        if(tgtSlider.value == -15)
+        {
+            tgtImage.sprite = sprites[0];
+        }
+        else if(tgtSlider.value <= -10f)
+        {
+            tgtImage.sprite = sprites[1];
+        }
+        else if(tgtSlider.value <= -5f)
+        {
+            tgtImage.sprite = sprites[2];
+        }
+        else
+        {
+            tgtImage.sprite = sprites[3];
+        }
+
+        audioMixer.SetFloat(str, tgtSlider.value);
+        if(tgtSlider.value == -15) { audioMixer.SetFloat(str, -80); }
     }
 }
