@@ -25,5 +25,10 @@ public class GameManager : MonoSingleTon<GameManager>
     {
         SceneManager.LoadScene(2);
     }
+
+    public void ExitGame()
+    {
+        Application.Quit();
+    }
     #endregion
 }

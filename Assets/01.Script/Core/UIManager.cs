@@ -28,6 +28,9 @@ public class UIManager : MonoSingleTon<UIManager>
     #region 인벤토리 UI 관련
     [Header("인벤토리 UI 관련")]
     [SerializeField] private GameObject inventoryPanel;
+    [SerializeField] private GameObject inventoryExitPanel;
+    [SerializeField] private TextMeshProUGUI inventoryNameTMP;
+    [SerializeField] private TextMeshProUGUI inventoryDescTMP;
     private bool isActiveInventory;
     #endregion
 
@@ -65,8 +68,6 @@ public class UIManager : MonoSingleTon<UIManager>
     [SerializeField] private AudioClip openClip;
     [SerializeField] private AudioClip closeClip;
     #endregion
-
-    float value = 0;
 
     public void Update()
     {
@@ -112,8 +113,7 @@ public class UIManager : MonoSingleTon<UIManager>
     public void DisplayVirtualTrain()
     {
         if (virtualTrainRect == null) return;
-        value = curLength / (totalLength * 192);
-        virtualTrainRect.anchoredPosition = new Vector2((curLength / (totalLength * 192)) * trainProgressBar.rectTransform.sizeDelta.x, 0);
+        virtualTrainRect.anchoredPosition = new Vector2(Mathf.Clamp(curLength / (totalLength * 384 + 155) * trainProgressBar.rectTransform.sizeDelta.x, 0, trainProgressBar.rectTransform.sizeDelta.x), 0);
     }
 
     public void ActiveMap()
@@ -124,12 +124,16 @@ public class UIManager : MonoSingleTon<UIManager>
         OnOffSound(isActiveMap);
     }
 
-    public void ActiveInventory()
+    public void ActiveInventory(bool isExit = false)
     {
         isActiveInventory = !isActiveInventory;
         inventoryPanel.SetActive(isActiveInventory);
         ActiveTime(!isActiveInventory);
         OnOffSound(isActiveInventory);
+        if(inventoryExitPanel != null)
+        {
+            inventoryExitPanel.SetActive(isExit);
+        }
     }
 
     public void ActiveCraftTable()
@@ -144,6 +148,12 @@ public class UIManager : MonoSingleTon<UIManager>
     {
         isActiveControllPanel = !isActiveControllPanel;
         controllPanel.SetActive(isActiveControllPanel);
+    }
+
+    public void SetInventoryUI(ItemDataSO data)
+    {
+        inventoryNameTMP.text = data.name;
+        inventoryDescTMP.text = data.desc;
     }
 
     public void SetCraftTable(string name, CraftDataSO[] craftDatas)
@@ -163,6 +173,7 @@ public class UIManager : MonoSingleTon<UIManager>
     
     public void SetCraftTableUI(CraftDataSO data)
     {
+        InventoryHandler.Instance.CraftData = data;
         craftItemNameTMP.text = data.targetItem.name;
         craftItemDescTMP.text = data.targetItem.desc;
         craftItemProfile.sprite = data.targetItem.profileImage;
@@ -176,7 +187,7 @@ public class UIManager : MonoSingleTon<UIManager>
             //InventoryHandler.Instance.ReturnAmout(element.data)
             //{InventoryHandler.Instance.ReturnAmout(element.data)}
 
-            if (5 < element.amount)//만약에 가진게 없으면 
+            if (InventoryHandler.Instance.ReturnAmout(element.data) < element.amount)//만약에 가진게 없으면 
             {
                 resourceStr += $"<#{ColorUtility.ToHtmlStringRGB(craftDisAbleColor)}>";
             }
@@ -185,7 +196,7 @@ public class UIManager : MonoSingleTon<UIManager>
                 resourceStr += $"<#{ColorUtility.ToHtmlStringRGB(craftAbleColor)}>";
             }
 
-            resourceStr += $"{element.data.name} 5 / {element.amount}";
+            resourceStr += $"{element.data.name} {InventoryHandler.Instance.ReturnAmout(element.data)} / {element.amount}";
 
             resourceStr += "</color>";
             resourceStr += "\n";

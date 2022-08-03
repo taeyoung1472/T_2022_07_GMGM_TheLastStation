@@ -5,19 +5,22 @@ using TMPro;
 using UnityEngine.UI;
 public class InventoryHandler : MonoSingleTon<InventoryHandler>
 {
-    public Dictionary<ItemDataSO, VirtualItem> itemsDic = new Dictionary<ItemDataSO, VirtualItem>();
+    private Dictionary<ItemDataSO, VirtualItem> itemsDic = new Dictionary<ItemDataSO, VirtualItem>();
 
-    public Transform ItemContent;
-    public GameObject InventoryItem;
+    [SerializeField] private Transform ItemContent;
+    [SerializeField] private GameObject InventoryItem;
+    [SerializeField] private ItemDataSO testSO;
+
+    private CraftDataSO craftData;
+    public CraftDataSO CraftData { get { return craftData; } set { craftData = value; } }
     //리턴어마운트 함수 확인용입니다 
-    public ItemDataSO testSO;
     public void Add(ItemDataSO itemDataSO)
     {
         if (itemsDic.ContainsKey(itemDataSO))//이미 아이템이 있는경우
         {
-            if (itemDataSO.maxStackAbleCount > itemsDic[itemDataSO].items[0].Amount)//만약 쌓일수 있는 여유공간이 있으면
+            if (itemDataSO.maxStackAbleCount > itemsDic[itemDataSO].items[itemsDic[itemDataSO].items.Count - 1].Amount)//만약 쌓일수 있는 여유공간이 있으면
             {
-                itemsDic[itemDataSO].items[0].Amount++;
+                itemsDic[itemDataSO].items[itemsDic[itemDataSO].items.Count - 1].Amount++;
             }
             else
             {
@@ -133,6 +136,24 @@ else
         Destroy(obj);
     }
 
+    public void UpgradeItem()
+    {
+        foreach (CraftElement data in craftData.craftElements)
+        {
+            ItemDataSO itemData = data.data;
+            if(ReturnAmout(itemData) < data.amount)
+            {
+                return;
+            }
+        }
+        foreach (CraftElement data in craftData.craftElements)
+        {
+            Use(data.data, data.amount);
+        }
+        UIManager.Instance.SetCraftTableUI(craftData);
+        Add(craftData.targetItem);
+    }
+    
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.T))
@@ -143,7 +164,12 @@ else
         {
             Use(testSO, 2);
         }
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            Add(testSO);
+        }
     }
+    
 }
 
 
@@ -194,10 +220,11 @@ public class LocalItem
     {
         data = _data;
         uiContent = _uiContent;
-        var itemName = uiContent.transform.Find("NameText").GetComponent<TextMeshProUGUI>();
         var itemIcon = uiContent.transform.Find("ItemSprite").GetComponent<Image>();
         var itemAmout = uiContent.transform.Find("AmountText").GetComponent<TextMeshProUGUI>();
-        itemName.text = data.name;
+        var button = uiContent.GetComponent<Button>();
+        button.onClick.AddListener(() => UIManager.Instance.SetInventoryUI(data));
+        UIManager.Instance.SetInventoryUI(data);
         itemIcon.sprite = data.profileImage;
         amountText = itemAmout;
     }//이게 만들때잖아 그러니까 Data 넣어주고 이게 생성자를 호출해야지 ㅎ

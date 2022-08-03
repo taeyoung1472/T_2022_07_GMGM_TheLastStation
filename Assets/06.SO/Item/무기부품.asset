@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 80ef321ccfd6a3141be4b2f56db29b80, type: 3}
-  m_Name: Item 2
+  m_Name: "\uBB34\uAE30\uBD80\uD488"
   m_EditorClassIdentifier: 
-  id: 0
-  prefab: {fileID: 313814323610240598, guid: 4d560f3e590f9a645b4d5b0eda6e9fe4, type: 3}
-  profileImage: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
-  itemId: 100
-  rareRate: 2
-  name: "\uC5F4\uC1E0"
-  desc: "\uC7A0\uAE34 \uBB38\uC744 \uC5F4 \uC218 \uC788\uB2E4"
-  maxStackAbleCount: 32
-  dropWeight: 0
+  prefab: {fileID: 0}
+  profileImage: {fileID: 21300000, guid: fa6278ca9c3cc08439903fdecb19600d, type: 3}
+  itemId: 0
+  rareRate: 0
+  name: "\uBB34\uAE30\uBD80\uD488"
+  desc: "\uB178\uB9AC\uC1E0 / \uD0C4\uCC3D / \uB0A0\uCE74\uB85C\uC6B4 \uC1E0\uBD99\uC774
+    \uB4F1\uB4F1 \uB369\uC5B4\uB9AC \uC785\uB2C8\uB2E4."
+  maxStackAbleCount: 4
+  dropWeight: 1
   itemType: 0

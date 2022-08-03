@@ -18,7 +18,7 @@ public class UICamMover : MonoSingleTon<CameraController>, IPointerDownHandler, 
 
     private void Start()
     {
-        cam.transform.position = new Vector3(60, 7, 0);
+        cam.transform.position = new Vector3(60, 3, 0);
     }
 
     public void OnPointerDown(PointerEventData eventData)

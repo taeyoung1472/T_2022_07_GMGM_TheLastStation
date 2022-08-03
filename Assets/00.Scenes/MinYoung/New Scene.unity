@@ -423,7 +423,8 @@ MeshCollider:
   m_Mesh: {fileID: 4300002, guid: c675f2960be724e7f91ec27c09aa2db2, type: 3}
 --- !u!4 &522675519 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 4000013162195916, guid: f91bd5ad6daecb6499fa5fcadcc2888c, type: 3}
+  m_CorrespondingSourceObject: {fileID: 4000013162195916, guid: f91bd5ad6daecb6499fa5fcadcc2888c,
+    type: 3}
   m_PrefabInstance: {fileID: 1925893884}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &650401075
@@ -5332,12 +5333,14 @@ CanvasRenderer:
   m_CullTransparentMesh: 1
 --- !u!4 &803700327 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 4000013162195916, guid: f91bd5ad6daecb6499fa5fcadcc2888c, type: 3}
+  m_CorrespondingSourceObject: {fileID: 4000013162195916, guid: f91bd5ad6daecb6499fa5fcadcc2888c,
+    type: 3}
   m_PrefabInstance: {fileID: 2936177698019930525}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &811448453 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 4000013162195916, guid: f91bd5ad6daecb6499fa5fcadcc2888c, type: 3}
+  m_CorrespondingSourceObject: {fileID: 4000013162195916, guid: f91bd5ad6daecb6499fa5fcadcc2888c,
+    type: 3}
   m_PrefabInstance: {fileID: 1764092145}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &853821800
@@ -5475,7 +5478,8 @@ CanvasRenderer:
   m_CullTransparentMesh: 1
 --- !u!4 &855943298 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 4000013162195916, guid: f91bd5ad6daecb6499fa5fcadcc2888c, type: 3}
+  m_CorrespondingSourceObject: {fileID: 4000013162195916, guid: f91bd5ad6daecb6499fa5fcadcc2888c,
+    type: 3}
   m_PrefabInstance: {fileID: 1672108107}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &950090504
@@ -5508,7 +5512,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ItemContent: {fileID: 985792559}
-  InventoryItem: {fileID: 7093766225652127572, guid: d2a54fd78ca584041babe21fdda421ff, type: 3}
+  InventoryItem: {fileID: 7093766225652127572, guid: d2a54fd78ca584041babe21fdda421ff,
+    type: 3}
   testSO: {fileID: 11400000, guid: 4ddfee7e2398ef44da34ba916dccf962, type: 2}
 --- !u!4 &950090506
 Transform:
@@ -15808,7 +15813,8 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 64000010486886370, guid: f91bd5ad6daecb6499fa5fcadcc2888c, type: 3}
+    - target: {fileID: 64000010486886370, guid: f91bd5ad6daecb6499fa5fcadcc2888c,
+        type: 3}
       propertyPath: m_Convex
       value: 1
       objectReference: {fileID: 0}
@@ -16011,7 +16017,8 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 64000010486886370, guid: f91bd5ad6daecb6499fa5fcadcc2888c, type: 3}
+    - target: {fileID: 64000010486886370, guid: f91bd5ad6daecb6499fa5fcadcc2888c,
+        type: 3}
       propertyPath: m_Convex
       value: 1
       objectReference: {fileID: 0}
@@ -16115,7 +16122,8 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 64000010486886370, guid: f91bd5ad6daecb6499fa5fcadcc2888c, type: 3}
+    - target: {fileID: 64000010486886370, guid: f91bd5ad6daecb6499fa5fcadcc2888c,
+        type: 3}
       propertyPath: m_Convex
       value: 1
       objectReference: {fileID: 0}
@@ -21269,7 +21277,8 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 64000010486886370, guid: f91bd5ad6daecb6499fa5fcadcc2888c, type: 3}
+    - target: {fileID: 64000010486886370, guid: f91bd5ad6daecb6499fa5fcadcc2888c,
+        type: 3}
       propertyPath: m_Convex
       value: 1
       objectReference: {fileID: 0}

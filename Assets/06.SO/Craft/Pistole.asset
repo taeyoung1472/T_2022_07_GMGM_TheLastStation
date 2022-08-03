@@ -14,7 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetItem: {fileID: 11400000, guid: 20c17165be22c974f9a743f3de316c2b, type: 2}
   craftElements:
-  - data: {fileID: 11400000, guid: 9c65578f5cd60d0438404b1401e3c7ca, type: 2}
-    amount: 7
   - data: {fileID: 11400000, guid: ad23b9f080518eb40856e96dbd97f7af, type: 2}
     amount: 3

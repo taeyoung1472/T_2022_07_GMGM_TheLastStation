@@ -10,7 +10,7 @@ public class BackgroundManager : MonoSingleTon<BackgroundManager>
     [SerializeField] private List<Background> backgrounds;
     [SerializeField] private List<BackgroundData> backgroundDatas;
     [SerializeField] private float speed;
-    public float Speed { get { return speed; } set { speed = value; } }
+    public float Speed { get { return speed; } set { if (isCanControllSpeed) { speed = value; } } }
 
     [Header("Serve")]
     [SerializeField] private List<Transform> backgroundsMiddle;
@@ -18,6 +18,7 @@ public class BackgroundManager : MonoSingleTon<BackgroundManager>
     [SerializeField] private List<Transform> backgroundsFar;
     [SerializeField] private float farSpeedValue;
 
+    bool isCanControllSpeed = true;
     bool isEnd = false;
     bool isEndLate = false;
     bool isEndPlace = false;
@@ -42,10 +43,17 @@ public class BackgroundManager : MonoSingleTon<BackgroundManager>
     }
     private void Update()
     {
+        if (!isCanControllSpeed)
+        {
+            speed = Mathf.Lerp(speed, 15, Time.deltaTime * 2);
+        }
         for (int i = 0; i < 2; i++)
         {
             backgrounds[i].transform.Translate(Vector3.back * speed * Time.deltaTime);
-            UIManager.Instance.CurLength += speed * Time.deltaTime;
+            if (!isEndPlace)
+            {
+                UIManager.Instance.CurLength += speed * Time.deltaTime;
+            }
             if (backgrounds[i].transform.position.z < -192)
             {
                 if (isEnd)
@@ -53,9 +61,9 @@ public class BackgroundManager : MonoSingleTon<BackgroundManager>
                     if (isEndPlace)
                     {
                         GameManager.Instance.LoadStation();
-                        speed = 0;
                         return;
                     }
+                    isCanControllSpeed = false;
                     backgrounds[i].Active(BackgroundType.End);
                     continue;
                 }
