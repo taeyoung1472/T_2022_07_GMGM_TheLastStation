@@ -17,7 +17,8 @@ MonoBehaviour:
   itemId: 1
   rareRate: 0
   name: "\uCCA0"
-  desc: "\uCCA0"
+  desc: "\uBB34\uC5B8\uAC00\uB97C \uB9CC\uB4DC\uB294\uB370 \uC790\uC8FC \uC0AC\uC6A9\uD558\uB294
+    \uC7AC\uB8CC\uC785\uB2C8\uB2E4"
   maxStackAbleCount: 4
   dropWeight: 5
   itemType: 0

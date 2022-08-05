@@ -7,8 +7,17 @@ public class CharacterManager : MonoSingleTon<CharacterManager>
     private Character controllingCharacter;
     public Character ControllingCharacter { get { return controllingCharacter; } }
 
+    [SerializeField] private Character startControllCharacter;
+    [SerializeField] private GameObject focusRing;
+    public void Start()
+    {
+        ControllCharacter(startControllCharacter);
+    }
+
     public void ControllCharacter(Character character)
     {
+        focusRing.transform.SetParent(character.transform);
+        focusRing.transform.localPosition = Vector3.zero;
         if(controllingCharacter != null)
         {
             //

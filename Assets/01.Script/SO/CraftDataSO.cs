@@ -6,6 +6,7 @@ using UnityEngine;
 public class CraftDataSO : ScriptableObject
 {
     public ItemDataSO targetItem;
+    public int amount = 1;
     public CraftElement[] craftElements;
 }
 

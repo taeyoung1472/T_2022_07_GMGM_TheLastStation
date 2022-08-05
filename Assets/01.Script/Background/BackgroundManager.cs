@@ -8,8 +8,8 @@ public class BackgroundManager : MonoSingleTon<BackgroundManager>
 {
     [Header("Main")]
     [SerializeField] private List<Background> backgrounds;
-    [SerializeField] private List<BackgroundData> backgroundDatas;
     [SerializeField] private float speed;
+    private List<BackgroundData> backgroundDatas = new List<BackgroundData>();
     public float Speed { get { return speed; } set { if (isCanControllSpeed) { speed = value; } } }
 
     [Header("Serve")]
@@ -17,6 +17,9 @@ public class BackgroundManager : MonoSingleTon<BackgroundManager>
     [SerializeField] private float middleSpeedValue;
     [SerializeField] private List<Transform> backgroundsFar;
     [SerializeField] private float farSpeedValue;
+
+    [Header("Á¤º¸")]
+    [SerializeField] private StationDataSO[] stationDataSO;
 
     bool isCanControllSpeed = true;
     bool isEnd = false;
@@ -26,6 +29,13 @@ public class BackgroundManager : MonoSingleTon<BackgroundManager>
     int curBackgroundIdx;
     private void Start()
     {
+        foreach (var data in stationDataSO[JsonManager.Instance.Data.curStationIndex].backgroundDatas)
+        {
+            backgroundDatas.Add(data);
+        }
+        UIManager.Instance.SetMapUI(stationDataSO[JsonManager.Instance.Data.curStationIndex]);
+        UIManager.Instance.ActiveLatterPanel(JsonManager.Instance.Data.curStationIndex);
+
         backgrounds[0].Active(BackgroundType.Start);
         backgrounds[1].Active(backgroundDatas[curBackgroundIdx].backgroundType);
         curIndex++;
@@ -60,7 +70,14 @@ public class BackgroundManager : MonoSingleTon<BackgroundManager>
                 {
                     if (isEndPlace)
                     {
-                        GameManager.Instance.LoadStation();
+                        if(JsonManager.Instance.Data.curStationIndex == 1)
+                        {
+                            GameManager.Instance.LoadDemoEnding();
+                        }
+                        else
+                        {
+                            GameManager.Instance.LoadStation();
+                        }
                         return;
                     }
                     isCanControllSpeed = false;

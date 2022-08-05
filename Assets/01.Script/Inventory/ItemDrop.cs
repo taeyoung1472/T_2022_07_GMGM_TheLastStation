@@ -6,6 +6,7 @@ public class ItemDrop : MonoBehaviour
 {
     [SerializeField] private int randomItemDropCount;
     [SerializeField] private int airDropWeight;
+    [SerializeField] private bool isCheck = false;
     [SerializeField] private ItemDataSO[] items;
     SpriteButton spriteButtonChild;
     private Door[] doors;
@@ -39,6 +40,11 @@ public class ItemDrop : MonoBehaviour
                     InventoryHandler.Instance.Add(item);
                     //print($"{Generate().name}이 나왔다!");
             }
+            if (isCheck)
+            {
+                JsonManager.Instance.Data.openBox.Add(gameObject.name);
+            }
+            UIManager.Instance.ActiveInventory();
             spriteButtonChild.gameObject.SetActive(false);
         }
     }

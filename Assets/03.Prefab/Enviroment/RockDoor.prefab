@@ -62,7 +62,7 @@ Transform:
   m_GameObject: {fileID: 8859836523833128876}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 2.6, z: 0}
-  m_LocalScale: {x: 4.5, y: 0.8, z: 0.099}
+  m_LocalScale: {x: 4.5, y: 0.7, z: 0.099}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7047191810900765673}
@@ -428,7 +428,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8859836524876581017}
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -2.75, y: 1, z: 0}
+  m_LocalPosition: {x: -2.75, y: 1.75, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1033,6 +1033,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: ae2b7ff3ef06844fc9854cfe7b1b10ad, type: 3}
   - {fileID: 21300000, guid: 452c82a6ddb8a4af5ac8b363531e2638, type: 3}
   doorBtn: {fileID: 8859836525660530875}
+  key: {fileID: 11400000, guid: 37d8939c5adbc724987219ee2372726b, type: 2}
 --- !u!1 &8859836525923319433
 GameObject:
   m_ObjectHideFlags: 0

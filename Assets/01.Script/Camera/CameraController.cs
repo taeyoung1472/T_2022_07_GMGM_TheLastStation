@@ -96,6 +96,7 @@ public class CameraController : MonoSingleTon<CameraController>
             {
                 CharacterManager.Instance.Controll(ControllType.Attack, GroundPos(hit), hit.transform.GetComponent<SpriteButton>());
             }
+            UISoundManager.Instance.CommandClick();
         }
     }
 

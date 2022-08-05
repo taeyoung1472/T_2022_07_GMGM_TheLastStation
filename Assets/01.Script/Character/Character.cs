@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using Random = UnityEngine.Random;
 
 public class Character : MonoBehaviour, IDamageAble
 {
@@ -39,6 +40,7 @@ public class Character : MonoBehaviour, IDamageAble
     public virtual void Start()
     {
         speed = data.moveSpeed;
+        StartCoroutine(FootSystem());
     }
 
     public virtual void Update()
@@ -119,5 +121,19 @@ public class Character : MonoBehaviour, IDamageAble
 
     public void Damage(float amount, Vector3 orginPos = default, float force = 1)
     {
+    }
+
+    IEnumerator FootSystem()
+    {
+        while (true)
+        {
+            yield return new WaitUntil(() => isAttaching);
+            while (isAttaching)
+            {
+                AudioClip clip = UISoundManager.Instance.Data.footStep[Random.Range(0, UISoundManager.Instance.Data.footStep.Length)];
+                PoolManager.Instance.Pop(PoolType.Sound).GetComponent<AudioPoolObject>().Play(clip, Random.Range(0.9f, 1.1f));
+                yield return new WaitForSeconds(0.4f);
+            }
+        }
     }
 }

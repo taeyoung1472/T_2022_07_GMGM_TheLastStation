@@ -18,5 +18,13 @@ public class PauseManager : MonoBehaviour
         isPause = !isPause;
         pausePanel.SetActive(isPause);
         Time.timeScale = isPause ? 0 : 1;
+        if (isPause)
+        {
+            UISoundManager.Instance.Open();
+        }
+        else
+        {
+            UISoundManager.Instance.Close();
+        }
     }
 }

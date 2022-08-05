@@ -5,6 +5,7 @@ using UnityEngine;
 public class TrainControllingTable : Enviroment
 {
     [SerializeField] private RectTransform speedBar;
+    [SerializeField] private RectTransform speedBarTgt;
     [SerializeField] private RectTransform prograssBar;
     [SerializeField] private SpeedMatch[] speedMatches;
 
@@ -20,8 +21,16 @@ public class TrainControllingTable : Enviroment
 
     void Update()
     {
-        angle = Mathf.Lerp(angle, speedMatches[index].rot, Time.deltaTime * 5);
-        speed = Mathf.Lerp(speed, speedMatches[index].speed, Time.deltaTime * 5);
+        if (speed < speedMatches[index].speed)
+        {
+            speed += Time.deltaTime * 2.5f;
+        }
+        else
+        {
+            speed -= Time.deltaTime * 5f;
+        }
+        angle = Mathf.Lerp(speedMatches[0].rot, speedMatches[speedMatches.Length - 1].rot, speed / speedMatches[speedMatches.Length - 1].speed);
+
         prograssGoal = speed / 100;
         prograssBar.sizeDelta = new Vector2(Mathf.Lerp(prograssBar.sizeDelta.x, prograssGoal * 790, Time.deltaTime * 5), prograssBar.sizeDelta.y);
         speedBar.eulerAngles = new Vector3 (0, 0, angle);
@@ -33,6 +42,7 @@ public class TrainControllingTable : Enviroment
         index += isUp ? 1 : -1;
         print(index);
         index = Mathf.Clamp(index, 0, speedMatches.Length - 1);
+        speedBarTgt.eulerAngles = new Vector3(0, 0, speedMatches[index].rot);
     }
 
     [System.Serializable]

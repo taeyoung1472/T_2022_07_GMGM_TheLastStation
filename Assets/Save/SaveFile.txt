@@ -1,4 +1,6 @@
 ﻿{
     "hasSawTrail": false,
-    "curStationIndex": 0
+    "curStationIndex": 0,
+    "inventory": [],
+    "openBox": []
 }

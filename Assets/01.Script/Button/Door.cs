@@ -12,6 +12,8 @@ public class Door : MonoBehaviour
     [SerializeField] private Sprite[] btnSprites;
     [SerializeField] private GameObject doorBtn;
 
+    [SerializeField] private ItemDataSO key;
+
     public void Control()
     {
         if (!isLock)
@@ -28,10 +30,11 @@ public class Door : MonoBehaviour
         }
         else
         {
-            if (IsHaveKey)
+            if (InventoryHandler.Instance.ReturnAmout(key) >= 1)
             {
                 isLock = false;
                 Control();
+                InventoryHandler.Instance.Use(key, 1);
                 doorBtn.GetComponent<SpriteRenderer>().sprite = btnSprites[1];
             }
             else

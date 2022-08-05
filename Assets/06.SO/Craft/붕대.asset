@@ -10,9 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c22d8f3304b3f694993f180dba4fa2ea, type: 3}
-  m_Name: Pistole
+  m_Name: "\uBD95\uB300"
   m_EditorClassIdentifier: 
-  targetItem: {fileID: 11400000, guid: 20c17165be22c974f9a743f3de316c2b, type: 2}
+  targetItem: {fileID: 11400000, guid: a78c826b8a467224db8d063c924ba7c2, type: 2}
+  amount: 1
   craftElements:
-  - data: {fileID: 11400000, guid: ad23b9f080518eb40856e96dbd97f7af, type: 2}
-    amount: 3
+  - data: {fileID: 11400000, guid: 357844899f4c65847bc666db98e06e61, type: 2}
+    amount: 4
