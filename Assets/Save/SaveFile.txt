@@ -1,5 +1,5 @@
 ﻿{
-    "hasSawTrail": false,
+    "hasSawTrail": true,
     "curStationIndex": 0,
     "inventory": [],
     "openBox": []
