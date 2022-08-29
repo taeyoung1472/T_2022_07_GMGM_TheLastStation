@@ -7,6 +7,7 @@ public class Turret : MonoBehaviour
 {
     [SerializeField] private TurretBarrel[] barrels;
     [SerializeField] private Transform center;
+    [SerializeField] private GameObject turretPanel;
     [SerializeField] private float delay;
     [SerializeField] private bool isControl = false;
     [SerializeField] private float rotSpeed = 5f;
@@ -43,10 +44,20 @@ public class Turret : MonoBehaviour
             center.eulerAngles = new Vector3(angle, 0, 0);
         }
     }
+
     public void Controll()
     {
+        turretPanel.SetActive(true);
         isControl = true;
     }
+
+    public void ControllOut()
+    {
+        isControl = false;
+        isShooting = false;
+        turretPanel.SetActive(false);
+    }
+
     IEnumerator Shoot()
     {
         while (true)

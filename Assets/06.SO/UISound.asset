@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8f5246e1d624144c9ba4629e88f979d, type: 3}
+  m_Name: UISound
+  m_EditorClassIdentifier: 
+  paperOpenSound: {fileID: 8300000, guid: c6261caf676545a43887de0c50249cce, type: 3}
+  paperCloseSound: {fileID: 8300000, guid: 60a7f91994a159c409c68dd70efbc56d, type: 3}
+  openSound: {fileID: 8300000, guid: 2f8d71e35b15b5547bc7e886eee1acc0, type: 3}
+  closeSound: {fileID: 8300000, guid: 5cbfbc741bcde074fab1f929b784c5e0, type: 3}
+  clickSound: {fileID: 8300000, guid: ba7db4cf230ed0348be2adbf8a720a7e, type: 3}
+  actSound: {fileID: 8300000, guid: f2c0781148ff97342abf41561df4dcad, type: 3}
+  pressButtonSound: {fileID: 8300000, guid: 9c47a040e41c4714680f68046dae693a, type: 3}
+  craftSound: {fileID: 8300000, guid: b1c3fef8f8c1f0145bbb4e6dfc8b007b, type: 3}
+  lightClickSound: {fileID: 8300000, guid: dd18e7d631e61a04eb919e05165aca32, type: 3}
+  footStep:
+  - {fileID: 8300000, guid: c80f5010958d5fb419186cb5ad39796a, type: 3}
+  - {fileID: 8300000, guid: 4155a9d46a18ec840ae8c86dd17a8dc4, type: 3}
+  - {fileID: 8300000, guid: 86c65739101ccb149b384f3acc09ddf3, type: 3}
+  - {fileID: 8300000, guid: ef6f161c403d1484e8991c16b8a53b9c, type: 3}
+  - {fileID: 8300000, guid: fac38376d5d33c44693a8adef7a5e813, type: 3}
+  - {fileID: 8300000, guid: c78ad12ea09ca634f8be3b07ede16cef, type: 3}
+  - {fileID: 8300000, guid: cb03cb70caa68304ebc95be49c6baaa9, type: 3}
+  - {fileID: 8300000, guid: d8390f9444931b240b8f888bbd154a08, type: 3}
+  - {fileID: 8300000, guid: 8255f0bc684296248b8953cd056b9f66, type: 3}
+  - {fileID: 8300000, guid: 9175a12dbc4385f46bbd5736fded1d5c, type: 3}

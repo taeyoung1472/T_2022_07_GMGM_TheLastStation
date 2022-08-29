@@ -8,7 +8,7 @@ public class JsonManager : MonoSingleTon<JsonManager>
     [SerializeField] private JsonData data = null;
     public JsonData Data { get { return data; } }
 
-    public void Start()
+    public void Awake()
     {
         Load();
         Save();

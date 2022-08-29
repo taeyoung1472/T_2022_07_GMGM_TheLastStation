@@ -5,19 +5,101 @@ using TMPro;
 using UnityEngine.UI;
 public class InventoryHandler : MonoSingleTon<InventoryHandler>
 {
-    public Dictionary<ItemDataSO, VirtualItem> itemsDic = new Dictionary<ItemDataSO, VirtualItem>();
+    private Dictionary<ItemDataSO, VirtualItem> itemsDic = new Dictionary<ItemDataSO, VirtualItem>();
 
-    public Transform ItemContent;
-    public GameObject InventoryItem;
-    //리턴어마운트 함수 확인용입니다 
-    public ItemDataSO testSO;
+    [SerializeField] private Transform ItemContent;
+    [SerializeField] private GameObject InventoryItem;
+    [SerializeField] private ItemDataSO testSO;
+    [SerializeField] private List<Transform> buttonList = new List<Transform>();
+    Dictionary<string, GameObject> buttonDic = new Dictionary<string, GameObject>();
+
+    [SerializeField] private bool isInit = false;
+
+    private CraftDataSO craftData;
+    public CraftDataSO CraftData { get { return craftData; } set { craftData = value; } }
+
+    public void Start()
+    {
+        if (!isInit)
+        {
+            foreach (var data in JsonManager.Instance.Data.inventory)
+            {
+                for (int i = 0; i < data.count; i++)
+                {
+                    Add(data.itemData);
+                }
+            }
+        }
+
+        foreach (var btn in buttonList)
+        {
+            buttonDic.Add(btn.gameObject.name, btn.gameObject);
+        }
+        if(buttonList.Count == 0) { return; }
+        foreach (var str in JsonManager.Instance.Data.openBox)
+        {
+            buttonDic[str].transform.Find("ButtonItem").gameObject.SetActive(false);
+        }
+    }
+
+    public void OnDestroy()
+    {
+        if (!isInit)
+        {
+            JsonManager.Instance.Data.inventory = new List<InventoryItemData>();
+            foreach (var data in itemsDic.Keys)
+            {
+                InventoryItemData itemData = new InventoryItemData();
+
+                int cnt = ReturnAmout(data);
+
+                itemData.itemData = data;
+                itemData.count = cnt;
+
+                JsonManager.Instance.Data.inventory.Add(itemData);
+            }
+        }
+        else
+        {
+            foreach (var data in itemsDic.Keys)
+            {
+                bool hasKey = false;
+                InventoryItemData hasDt = null;
+                foreach (var dt in JsonManager.Instance.Data.inventory)
+                {
+                    if(dt.itemData == data)
+                    {
+                        hasDt = dt;
+                        hasKey = true;
+                    }
+                }
+                if (hasKey)
+                {
+                    hasDt.count += itemsDic[data].ReturnAmout();
+                }
+                else
+                {
+                    InventoryItemData itemData = new InventoryItemData();
+
+                    int cnt = ReturnAmout(data);
+
+                    itemData.itemData = data;
+                    itemData.count = cnt;
+
+                    JsonManager.Instance.Data.inventory.Add(itemData);
+                }
+            }
+        }
+        JsonManager.Instance.Save();
+    }
+
     public void Add(ItemDataSO itemDataSO)
     {
         if (itemsDic.ContainsKey(itemDataSO))//이미 아이템이 있는경우
         {
-            if (itemDataSO.maxStackAbleCount > itemsDic[itemDataSO].items[0].Amount)//만약 쌓일수 있는 여유공간이 있으면
+            if (itemDataSO.maxStackAbleCount > itemsDic[itemDataSO].items[itemsDic[itemDataSO].items.Count - 1].Amount)//만약 쌓일수 있는 여유공간이 있으면
             {
-                itemsDic[itemDataSO].items[0].Amount++;
+                itemsDic[itemDataSO].items[itemsDic[itemDataSO].items.Count - 1].Amount++;
             }
             else
             {
@@ -133,6 +215,27 @@ else
         Destroy(obj);
     }
 
+    public void UpgradeItem()
+    {
+        foreach (CraftElement data in craftData.craftElements)
+        {
+            ItemDataSO itemData = data.data;
+            if(ReturnAmout(itemData) < data.amount)
+            {
+                return;
+            }
+        }
+        foreach (CraftElement data in craftData.craftElements)
+        {
+            Use(data.data, data.amount);
+        }
+        UIManager.Instance.SetCraftTableUI(craftData);
+        for (int i = 0; i < craftData.amount; i++)
+        {
+            Add(craftData.targetItem);
+        }
+    }
+    
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.T))
@@ -143,7 +246,12 @@ else
         {
             Use(testSO, 2);
         }
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            Add(testSO);
+        }
     }
+    
 }
 
 
@@ -194,10 +302,12 @@ public class LocalItem
     {
         data = _data;
         uiContent = _uiContent;
-        var itemName = uiContent.transform.Find("NameText").GetComponent<TextMeshProUGUI>();
         var itemIcon = uiContent.transform.Find("ItemSprite").GetComponent<Image>();
         var itemAmout = uiContent.transform.Find("AmountText").GetComponent<TextMeshProUGUI>();
-        itemName.text = data.name;
+        var button = uiContent.GetComponent<Button>();
+        button.onClick.AddListener(() => UIManager.Instance.SetInventoryUI(data));
+        button.onClick.AddListener(() => UISoundManager.Instance.LightClick());
+        UIManager.Instance.SetInventoryUI(data);
         itemIcon.sprite = data.profileImage;
         amountText = itemAmout;
     }//이게 만들때잖아 그러니까 Data 넣어주고 이게 생성자를 호출해야지 ㅎ

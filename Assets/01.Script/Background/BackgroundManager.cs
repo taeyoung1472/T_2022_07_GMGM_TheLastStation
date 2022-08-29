@@ -8,9 +8,9 @@ public class BackgroundManager : MonoSingleTon<BackgroundManager>
 {
     [Header("Main")]
     [SerializeField] private List<Background> backgrounds;
-    [SerializeField] private List<BackgroundData> backgroundDatas;
     [SerializeField] private float speed;
-    public float Speed { get { return speed; } set { speed = value; } }
+    private List<BackgroundData> backgroundDatas = new List<BackgroundData>();
+    public float Speed { get { return speed; } set { if (isCanControllSpeed) { speed = value; } } }
 
     [Header("Serve")]
     [SerializeField] private List<Transform> backgroundsMiddle;
@@ -18,6 +18,10 @@ public class BackgroundManager : MonoSingleTon<BackgroundManager>
     [SerializeField] private List<Transform> backgroundsFar;
     [SerializeField] private float farSpeedValue;
 
+    [Header("Á¤º¸")]
+    [SerializeField] private StationDataSO[] stationDataSO;
+
+    bool isCanControllSpeed = true;
     bool isEnd = false;
     bool isEndLate = false;
     bool isEndPlace = false;
@@ -25,6 +29,13 @@ public class BackgroundManager : MonoSingleTon<BackgroundManager>
     int curBackgroundIdx;
     private void Start()
     {
+        foreach (var data in stationDataSO[JsonManager.Instance.Data.curStationIndex].backgroundDatas)
+        {
+            backgroundDatas.Add(data);
+        }
+        UIManager.Instance.SetMapUI(stationDataSO[JsonManager.Instance.Data.curStationIndex]);
+        UIManager.Instance.ActiveLatterPanel(JsonManager.Instance.Data.curStationIndex);
+
         backgrounds[0].Active(BackgroundType.Start);
         backgrounds[1].Active(backgroundDatas[curBackgroundIdx].backgroundType);
         curIndex++;
@@ -42,20 +53,34 @@ public class BackgroundManager : MonoSingleTon<BackgroundManager>
     }
     private void Update()
     {
+        if (!isCanControllSpeed)
+        {
+            speed = Mathf.Lerp(speed, 15, Time.deltaTime * 2);
+        }
         for (int i = 0; i < 2; i++)
         {
             backgrounds[i].transform.Translate(Vector3.back * speed * Time.deltaTime);
-            UIManager.Instance.CurLength += speed * Time.deltaTime;
+            if (!isEndPlace)
+            {
+                UIManager.Instance.CurLength += speed * Time.deltaTime;
+            }
             if (backgrounds[i].transform.position.z < -192)
             {
                 if (isEnd)
                 {
                     if (isEndPlace)
                     {
-                        GameManager.Instance.LoadStation();
-                        speed = 0;
+                        if(JsonManager.Instance.Data.curStationIndex == 1)
+                        {
+                            GameManager.Instance.LoadDemoEnding();
+                        }
+                        else
+                        {
+                            GameManager.Instance.LoadStation();
+                        }
                         return;
                     }
+                    isCanControllSpeed = false;
                     backgrounds[i].Active(BackgroundType.End);
                     continue;
                 }

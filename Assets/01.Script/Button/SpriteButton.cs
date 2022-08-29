@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.Events;
 
 public class SpriteButton : MonoBehaviour
@@ -17,8 +18,18 @@ public class SpriteButton : MonoBehaviour
     private float curDur;
     private bool isUsing;
 
+    AudioSource audioSource;
+    float vol;
+
     public void Start()
     {
+        audioSource = gameObject.AddComponent<AudioSource>();
+        audioSource.Stop();
+        audioSource.loop = true;
+        audioSource.volume = 0f;
+        audioSource.outputAudioMixerGroup = GameManager.Instance.EffectGroup;
+        audioSource.clip = UISoundManager.Instance.Data.actSound;
+        audioSource.Play();
         curDur = duration;
         if(curDur == 0)
         {
@@ -29,6 +40,7 @@ public class SpriteButton : MonoBehaviour
 
     public void Update()
     {
+        audioSource.volume = Mathf.Lerp(audioSource.volume, vol, Time.deltaTime * 2f);
         DisplaySlide();
         if (isUsing)
         {
@@ -37,10 +49,14 @@ public class SpriteButton : MonoBehaviour
             {
                 buttonEvent?.Invoke(usingCharacter);
                 print($"{usingCharacter.Data.name} 이가 {name}을 작동시킴");
+                vol = 0;
                 usingCharacter.CompleteAct();
                 curDur = duration;
                 isUsing = false;
                 UsingCharacter = null;
+                Color color;
+                ColorUtility.TryParseHtmlString("#545454FF", out color);
+                gameObject.GetComponent<SpriteRenderer>().color = color;
             }
         }
     }
@@ -55,6 +71,10 @@ public class SpriteButton : MonoBehaviour
     {
         if (isUsing) return;
         print($"{usingCharacter.Data.name} 이가 {name}을 작동시키는중");
+        Color color;
+        ColorUtility.TryParseHtmlString("#FF8000FF", out color);
+        gameObject.GetComponent<SpriteRenderer>().color = color;
+        vol = 1;
         if (isReset)
         {
             curDur = duration;
@@ -68,6 +88,10 @@ public class SpriteButton : MonoBehaviour
         {
             curDur = duration;
         }
+        Color color;
+        ColorUtility.TryParseHtmlString("#545454FF", out color);
+        gameObject.GetComponent<SpriteRenderer>().color = color;
+        vol = 0;
         UsingCharacter = null;
         isUsing = false;
     }

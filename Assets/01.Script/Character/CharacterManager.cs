@@ -7,8 +7,17 @@ public class CharacterManager : MonoSingleTon<CharacterManager>
     private Character controllingCharacter;
     public Character ControllingCharacter { get { return controllingCharacter; } }
 
+    [SerializeField] private Character startControllCharacter;
+    [SerializeField] private GameObject focusRing;
+    public void Start()
+    {
+        ControllCharacter(startControllCharacter);
+    }
+
     public void ControllCharacter(Character character)
     {
+        focusRing.transform.SetParent(character.transform);
+        focusRing.transform.localPosition = Vector3.zero;
         if(controllingCharacter != null)
         {
             //
@@ -21,6 +30,7 @@ public class CharacterManager : MonoSingleTon<CharacterManager>
     public void Controll(ControllType type, Vector3 orderPos = default(Vector3), SpriteButton button = null)
     {
         if (controllingCharacter == null) return;
+        orderPos = new Vector3(0, orderPos.y, orderPos.z);
         switch (type)
         {
             case ControllType.Act:

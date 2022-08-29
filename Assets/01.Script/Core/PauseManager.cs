@@ -10,9 +10,21 @@ public class PauseManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            isPause = !isPause;
-            pausePanel.SetActive(isPause);
-            Time.timeScale = isPause ? 0 : 1;
+            Active();
+        }
+    }
+    public void Active()
+    {
+        isPause = !isPause;
+        pausePanel.SetActive(isPause);
+        Time.timeScale = isPause ? 0 : 1;
+        if (isPause)
+        {
+            UISoundManager.Instance.Open();
+        }
+        else
+        {
+            UISoundManager.Instance.Close();
         }
     }
 }

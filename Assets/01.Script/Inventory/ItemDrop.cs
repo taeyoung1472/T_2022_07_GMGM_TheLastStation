@@ -5,6 +5,8 @@ using UnityEngine;
 public class ItemDrop : MonoBehaviour
 {
     [SerializeField] private int randomItemDropCount;
+    [SerializeField] private int airDropWeight;
+    [SerializeField] private bool isCheck = false;
     [SerializeField] private ItemDataSO[] items;
     SpriteButton spriteButtonChild;
     private Door[] doors;
@@ -24,18 +26,25 @@ public class ItemDrop : MonoBehaviour
             isOpened = true;
             foreach (var item in items)
             {
-                print($"{item.name}이 {item.prefab.dropableCount}개만큼 나왔다!");
-                if(item.itemId == 100)//열쇠일 때
+                if (item.itemId == 100)//열쇠일 때
                 {
+                    InventoryHandler.Instance.Add(item);
                     foreach (var door in doors)
                         door.IsHaveKey = true;
                 }
             }
             for (int i = 0; i < randomItemDropCount; i++)
             {
-                if (Generate() != null)
-                    print($"{Generate().name}이 나왔다!");
+                ItemDataSO item = Generate();
+                if (item != null)
+                    InventoryHandler.Instance.Add(item);
+                    //print($"{Generate().name}이 나왔다!");
             }
+            if (isCheck)
+            {
+                JsonManager.Instance.Data.openBox.Add(gameObject.name);
+            }
+            UIManager.Instance.ActiveInventory();
             spriteButtonChild.gameObject.SetActive(false);
         }
     }
@@ -48,7 +57,7 @@ public class ItemDrop : MonoBehaviour
             totalWeight += items[i].dropWeight;
         }
 
-        int rand = Random.Range(1, totalWeight + 1);
+        int rand = Random.Range(1, totalWeight + 1 + airDropWeight);
         for (int i = 0; i < items.Length; i++)//하나하나 더해가면서 가중치 안에 있는지 체크
         {
             check += items[i].dropWeight;
