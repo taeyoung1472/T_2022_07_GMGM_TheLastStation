@@ -1,6 +1,54 @@
 ﻿{
-    "hasSawTrail": false,
+    "hasSawTrail": true,
     "curStationIndex": 0,
-    "inventory": [],
-    "openBox": []
+    "inventory": [
+        {
+            "itemData": {
+                "instanceID": 13410
+            },
+            "count": 4
+        },
+        {
+            "itemData": {
+                "instanceID": 13352
+            },
+            "count": 5
+        },
+        {
+            "itemData": {
+                "instanceID": 13188
+            },
+            "count": 1
+        },
+        {
+            "itemData": {
+                "instanceID": 13166
+            },
+            "count": 6
+        },
+        {
+            "itemData": {
+                "instanceID": 13164
+            },
+            "count": 1
+        },
+        {
+            "itemData": {
+                "instanceID": 13092
+            },
+            "count": 1
+        },
+        {
+            "itemData": {
+                "instanceID": 13162
+            },
+            "count": 1
+        }
+    ],
+    "openBox": [
+        "Looting6",
+        "Looting5",
+        "Looting1",
+        "Looting4"
+    ]
 }
