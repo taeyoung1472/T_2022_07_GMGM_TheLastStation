@@ -16,3 +16,4 @@ MonoBehaviour:
   stationDesc: "\uC2DC\uC791\uC9C0\uC810"
   profileImage: {fileID: 0}
   backgroundDatas: []
+  templateData: {fileID: 11400000, guid: b544dceb2e250634b82feedc86a8c577, type: 2}
