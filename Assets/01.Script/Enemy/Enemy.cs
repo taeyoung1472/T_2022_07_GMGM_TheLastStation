@@ -5,7 +5,7 @@ using UnityEngine;
 public class Enemy : MonoBehaviour, IDamageAble
 {
 
-    int i=0;
+    int i = 0;
     public Transform shootRay;
     [SerializeField]
     Transform TargetTransform;
@@ -14,7 +14,7 @@ public class Enemy : MonoBehaviour, IDamageAble
     Vector3 trainPos;
     Vector3 playerPos;
     Vector3 move;
-    Vector3 destination=Vector3.zero;
+    Vector3 destination = Vector3.zero;
 
     Vector3 goPlace = Vector3.zero;
     Rigidbody enemyRigid;
@@ -36,7 +36,14 @@ public class Enemy : MonoBehaviour, IDamageAble
     float lastFire;
     public GameObject projectile; //발사체 
     RaycastHit hit;
-    
+    EnemyState enemyState;
+    enum EnemyState
+    {
+        Idle,
+        Attack,
+        Move,
+        Fire,
+    }
     private void Start()
     {
         isRandom = true;
@@ -49,6 +56,7 @@ public class Enemy : MonoBehaviour, IDamageAble
     }
     private void Update()
     {
+        
         print(destination);
         playerPos.x = Mathf.Lerp(transform.position.x, TargetTransform.position.x, Time.deltaTime);
         if (Mathf.Abs(transform.position.x - TargetTransform.position.x) < 0.1f)
@@ -65,7 +73,6 @@ public class Enemy : MonoBehaviour, IDamageAble
 
             if (hit.transform.gameObject.CompareTag("Train"))
             {
-                print("부딫힘");
                 Attack();
             }
         }
@@ -75,32 +82,17 @@ public class Enemy : MonoBehaviour, IDamageAble
 
     void Attack()
     {
- //움직일때 
+        //움직일때 
         if (isMove)
         {
-            if(isRandom )
+            if (isRandom)
             {
-             i = Random.Range(0, 2);
-                if(i==0)
-                {
-                    destination = transform.position + goPlace;
-                }
-                else if(i==1)
-                {
-                    destination = transform.position - goPlace;
-                }
+                i = Random.Range(0, 2);
+                destination = i == 0 ? transform.position + goPlace : transform.position - goPlace;
                 isRandom = false;
-                
             }
-           timera+=Time.deltaTime;
-            if(i==0)
-            {
-                transform.position = Vector3.MoveTowards(transform.position, destination, Time.deltaTime * moveSpeed);   
-            }
-            else if(i==1)
-            {
-                transform.position = Vector3.MoveTowards(transform.position, destination, Time.deltaTime * moveSpeed); 
-            }
+            timera += Time.deltaTime;
+            transform.position = Vector3.MoveTowards(transform.position, destination, Time.deltaTime * moveSpeed);  
 
             if (timera >= 3)
             {
@@ -110,7 +102,7 @@ public class Enemy : MonoBehaviour, IDamageAble
             }
 
         }
-        // 공격할때 
+        // 공격할때
         else if (!isMove)
         {
             enemyAni.SetBool("IsAttack", true);
@@ -136,13 +128,13 @@ public class Enemy : MonoBehaviour, IDamageAble
 
             enemyAudio.PlayOneShot(fireSound);
             lastFire = Time.time;
-            Instantiate(projectile, firePos.position, Quaternion.identity);
+            Instantiate(projectile, firePos.position, Quaternion.identity); 
 
             if (timer >= 1.5f)
             {
                 isMove = true;
                 enemyAni.SetBool("IsAttack", false);
-                Invoke("StopAudio", 1f);
+                Invoke("StopAudio", 1f); 
                 timer = 0;
 
             }
