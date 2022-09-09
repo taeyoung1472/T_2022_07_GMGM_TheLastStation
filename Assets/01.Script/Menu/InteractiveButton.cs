@@ -31,7 +31,7 @@ public class InteractiveButton : MonoBehaviour, IPointerEnterHandler, IPointerEx
         image.DOColor(activeColor, 0.2f).SetUpdate(true);
         if(activeClip != null)
         {
-            PoolManager.Instance.Pop(PoolType.Sound).GetComponent<AudioPoolObject>().Play(activeClip, Random.Range(0.9f, 1.1f));
+            AudioManager.Play(activeClip, Random.Range(0.9f, 1.1f));
         }
     }
 

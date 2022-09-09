@@ -67,6 +67,6 @@ public class Car : MonoBehaviour
 
     private void PlaySound(AudioClip clip)
     {
-        PoolManager.Instance.Pop(PoolType.Sound).GetComponent<AudioPoolObject>().Play(clip);
+        AudioManager.Play(clip);
     }
 }

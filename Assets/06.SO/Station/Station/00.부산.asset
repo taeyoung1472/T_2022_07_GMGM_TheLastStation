@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bafd0547f16aea54a8cf4aa8ee3a718b, type: 3}
+  m_Name: "00.\uBD80\uC0B0"
+  m_EditorClassIdentifier: 
+  stationName: "\uBD80\uC0B0"
+  stationDesc: "\uC2DC\uC791\uC9C0\uC810"
+  profileImage: {fileID: 0}
+  backgroundDatas: []
+  pharmingDatas:
+  - {fileID: 11400000, guid: 33caead80c0bb5f438fd5761ac086220, type: 2}
+  - {fileID: 11400000, guid: 782af78d33f3ba14e9568669f59865a1, type: 2}
+  - {fileID: 11400000, guid: 487b1add3fb3404498890b01f2daa1cf, type: 2}
+  - {fileID: 11400000, guid: fe94791205375eb46bab40b4b404611a, type: 2}

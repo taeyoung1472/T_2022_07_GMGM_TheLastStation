@@ -25,6 +25,7 @@ public class BackgroundManager : MonoSingleTon<BackgroundManager>
     bool isEnd = false;
     bool isEndLate = false;
     bool isEndPlace = false;
+    bool isLoadScene = false;
     int curIndex;
     int curBackgroundIdx;
     private void Start()
@@ -70,13 +71,21 @@ public class BackgroundManager : MonoSingleTon<BackgroundManager>
                 {
                     if (isEndPlace)
                     {
-                        if(JsonManager.Instance.Data.curStationIndex == 1)
+                        if (JsonManager.Instance.Data.curStationIndex == 1)
                         {
-                            GameManager.Instance.LoadDemoEnding();
+                            if (!isLoadScene)
+                            {
+                                isLoadScene = true;
+                                GameManager.Instance.LoadDemoEnding();
+                            }
                         }
                         else
                         {
-                            GameManager.Instance.LoadStation();
+                            if (!isLoadScene)
+                            {
+                                GameManager.Instance.LoadStation();
+                                isLoadScene = true;
+                            }
                         }
                         return;
                     }

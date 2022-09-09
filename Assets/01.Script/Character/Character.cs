@@ -131,7 +131,7 @@ public class Character : MonoBehaviour, IDamageAble
             while (isAttaching)
             {
                 AudioClip clip = UISoundManager.Instance.Data.footStep[Random.Range(0, UISoundManager.Instance.Data.footStep.Length)];
-                PoolManager.Instance.Pop(PoolType.Sound).GetComponent<AudioPoolObject>().Play(clip, Random.Range(0.9f, 1.1f));
+                AudioManager.Play(clip, Random.Range(0.9f, 1.1f));
                 yield return new WaitForSeconds(0.4f);
             }
         }

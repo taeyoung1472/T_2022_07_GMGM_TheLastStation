@@ -10,7 +10,7 @@ public class StationDataSO : ScriptableObject
     public string stationDesc;
     public Sprite profileImage;
     public List<BackgroundData> backgroundDatas;
-    public StationTemplateDataSO templateData;
+    public List<PharmingDataSO> pharmingDatas;
 
     [ContextMenu("길이체크")]
     public void CheckLength()

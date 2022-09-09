@@ -61,7 +61,7 @@ public class AudioController : MonoBehaviour
         if(timer < 0)
         {
             timer = 0.075f;
-            PoolManager.Instance.Pop(PoolType.Sound).GetComponent<AudioPoolObject>().Play(valueChangeSound);
+            AudioManager.Play(valueChangeSound);
         }
     }
 }

@@ -21,7 +21,7 @@ public class TurretBarrel : MonoBehaviour
     {
         fireParticle.Play();
         PoolManager.Instance.Pop(PoolType.TurretBullet).GetComponent<TurretBullet>().Set(fireTrans.position, fireTrans.rotation);
-        PoolManager.Instance.Pop(PoolType.Sound).GetComponent<AudioPoolObject>().Play(fireClip, Random.Range(0.9f, 1.1f));
+        AudioManager.Play(fireClip, Random.Range(0.9f, 1.1f));
         Sequence seq = DOTween.Sequence();
         seq.Append(transform.DOLocalMoveZ(barrelOriginPos - barrelKnockbackPos, dur * 0.2f));
         seq.AppendCallback(() => {

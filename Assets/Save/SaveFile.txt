@@ -1,46 +1,6 @@
 ﻿{
-    "hasSawTrail": true,
+    "hasSawTrail": false,
     "curStationIndex": 0,
-    "inventory": [
-        {
-            "itemData": {
-                "instanceID": 30494
-            },
-            "count": 1
-        },
-        {
-            "itemData": {
-                "instanceID": 30498
-            },
-            "count": 2
-        },
-        {
-            "itemData": {
-                "instanceID": 30488
-            },
-            "count": 2
-        },
-        {
-            "itemData": {
-                "instanceID": 30484
-            },
-            "count": 4
-        },
-        {
-            "itemData": {
-                "instanceID": 30478
-            },
-            "count": 2
-        },
-        {
-            "itemData": {
-                "instanceID": 30480
-            },
-            "count": 1
-        }
-    ],
-    "openBox": [
-        "Looting5",
-        "Looting6"
-    ]
+    "inventory": [],
+    "openBox": []
 }
