@@ -24,6 +24,6 @@ EditorBuildSettings:
     path: Assets/00.Scenes/DemoEnding.unity
     guid: 55be0c10d9d6c56468c7c870feae1448
   - enabled: 1
-    path: Assets/00.Scenes/GiJoo/Loading.unity
+    path: Assets/00.Scenes/Loading.unity
     guid: e86598c800395aa4695ff5d1978ecb9f
   m_configObjects: {}
