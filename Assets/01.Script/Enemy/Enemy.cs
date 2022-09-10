@@ -56,7 +56,8 @@ public class Enemy : MonoBehaviour, IDamageAble
     }
     private void Update()
     {
-        
+        print(isMove);
+        print(timera);
         print(destination);
         playerPos.x = Mathf.Lerp(transform.position.x, TargetTransform.position.x, Time.deltaTime);
         if (Mathf.Abs(transform.position.x - TargetTransform.position.x) < 0.1f)
@@ -68,15 +69,11 @@ public class Enemy : MonoBehaviour, IDamageAble
             transform.position = Vector3.Lerp(playerPos, trainPos, Time.deltaTime * moveSpeed);
         }
 
-        if (Physics.Raycast(shootRay.position, transform.forward, out hit, 10) && isArrive)
+        if(isArrive)
         {
+        Attack();
 
-            if (hit.transform.gameObject.CompareTag("Train"))
-            {
-                Attack();
-            }
         }
-
         Debug.DrawRay(shootRay.position, transform.forward * 10, Color.red);
     }
 
@@ -85,20 +82,25 @@ public class Enemy : MonoBehaviour, IDamageAble
         //움직일때 
         if (isMove)
         {
+            timera += Time.deltaTime;
+            transform.position = Vector3.MoveTowards(transform.position, destination, Time.deltaTime * moveSpeed);
             if (isRandom)
             {
                 i = Random.Range(0, 2);
+                
                 destination = i == 0 ? transform.position + goPlace : transform.position - goPlace;
                 isRandom = false;
+               
             }
-            timera += Time.deltaTime;
-            transform.position = Vector3.MoveTowards(transform.position, destination, Time.deltaTime * moveSpeed);  
-
+            
+         
+            
             if (timera >= 3)
             {
                 timera = 0;
                 isMove = false;
                 isRandom = true;
+                goPlace = new Vector3(Random.Range(0, 10), Random.Range(0, 10), Random.Range(0, 10));
             }
 
         }
@@ -108,7 +110,6 @@ public class Enemy : MonoBehaviour, IDamageAble
             enemyAni.SetBool("IsAttack", true);
             if (enemyAudio.isPlaying)
             {
-                print("음악 키기");
                 ShootFire();
             }
             else
