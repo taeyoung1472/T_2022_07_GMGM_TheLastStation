@@ -5,9 +5,9 @@ using UnityEngine;
 
 public class TimeManager : MonoBehaviour
 {
-    [SerializeField] private float minPerTime;
-    [SerializeField] private int min;
-    [SerializeField] private int hour;
+    private float minPerTime;
+    private int min;
+    private int hour;
     void Start()
     {
         StartCoroutine(TimeSystem());

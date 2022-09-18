@@ -17,14 +17,14 @@ public class SceneChangeCanvas : MonoBehaviour
     {
         Time.timeScale = 1.0f;
         loadingSeq = DOTween.Sequence();
-        loadingSeq.Append(DOTween.To(() => group.alpha, x => group.alpha = x, 1, 0.5f));
-        loadingSeq.AppendInterval(1.5f);
+        loadingSeq.Append(DOTween.To(() => group.alpha, x => group.alpha = x, 1, 0.5f)).SetUpdate(false);
+        loadingSeq.AppendInterval(1.5f).SetUpdate(false);
         loadingSeq.AppendCallback(() => { callbackAction?.Invoke(); });
     }
     public static void DeActive(Action callbackAction = null)
     {
         loadingSeq = DOTween.Sequence();
-        loadingSeq.Append(DOTween.To(() => group.alpha, x => group.alpha = x, 0, 0.5f));
+        loadingSeq.Append(DOTween.To(() => group.alpha, x => group.alpha = x, 0, 0.5f)).SetUpdate(false);
         loadingSeq.AppendCallback(() => { callbackAction?.Invoke(); });
     }
 }

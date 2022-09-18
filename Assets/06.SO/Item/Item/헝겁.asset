@@ -12,13 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80ef321ccfd6a3141be4b2f56db29b80, type: 3}
   m_Name: "\uD5DD\uAC81"
   m_EditorClassIdentifier: 
-  prefab: {fileID: 313814323610240598, guid: 0905ff1c0bda06440849cb64884d5376, type: 3}
-  profileImage: {fileID: 21300000, guid: 545a787ab0f3cd246809155ccbc204ee, type: 3}
+  itemSprite: {fileID: 21300000, guid: 545a787ab0f3cd246809155ccbc204ee, type: 3}
+  category: 0
   itemId: 1
-  rareRate: 0
-  name: "\uD5DD\uAC8A"
-  desc: "\uB2F4\uC694 / \uCE68\uB300 / \uC637 / \uBD95\uB300 \uB4F1\uB4F1 \uC5EC\uB7EC\uAC00\uC9C0\uC5D0
-    \uC4F0\uC774\uB294 \uD5DD\uAC8A \uC785\uB2C8\uB2E4"
   maxStackAbleCount: 8
+  itemName: "\uD5DD\uAC8A"
+  itemDesc: "\uC544\uC774\uD15C \uC124\uBA85"
   dropWeight: 2
-  itemType: 0

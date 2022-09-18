@@ -27,18 +27,18 @@ public class CharacterManager : MonoSingleTon<CharacterManager>
         UIManager.Instance.SetCharacterCardInfo(controllingCharacter.Data);
     }
 
-    public void Controll(ControllType type, Vector3 orderPos = default(Vector3), SpriteButton button = null)
+    public void Controll(ControllType type, bool isLeftClick, Vector3 orderPos = default(Vector3), SpriteButton button = null)
     {
         if (controllingCharacter == null) return;
         orderPos = new Vector3(0, orderPos.y, orderPos.z);
         switch (type)
         {
             case ControllType.Act:
-                controllingCharacter.Move(orderPos);
+                controllingCharacter.Move(orderPos, !isLeftClick);
                 controllingCharacter.Act(button.UseStart, button);
                 break;
             case ControllType.Move:
-                controllingCharacter.Move(orderPos);
+                controllingCharacter.Move(orderPos, !isLeftClick);
                 controllingCharacter.UsingButton?.UseCancel();
                 controllingCharacter.CancelAct();
                 break;

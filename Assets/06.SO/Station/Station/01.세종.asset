@@ -33,4 +33,12 @@ MonoBehaviour:
   backgroundDatas:
   - backgroundType: 0
     length: 2
+  - backgroundType: 1
+    length: 2
+  - backgroundType: 2
+    length: 2
+  - backgroundType: 3
+    length: 2
+  - backgroundType: 1
+    length: 2
   pharmingDatas: []

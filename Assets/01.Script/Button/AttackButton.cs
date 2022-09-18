@@ -6,7 +6,7 @@ public class AttackButton : SpriteButton
 {
     private Character character;
     public Character Character { get { return character; } }
-    public void Start()
+    public override void Start()
     {
         base.Start();
         character = GetComponentInParent<Character>();

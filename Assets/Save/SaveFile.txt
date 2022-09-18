@@ -1,6 +1,38 @@
 ﻿{
-    "hasSawTrail": false,
+    "hasSawTrail": true,
     "curStationIndex": 0,
-    "inventory": [],
-    "openBox": []
+    "inventory": [
+        {
+            "itemData": {
+                "instanceID": 113330
+            },
+            "count": 16
+        },
+        {
+            "itemData": {
+                "instanceID": 113324
+            },
+            "count": 10
+        },
+        {
+            "itemData": {
+                "instanceID": 30130
+            },
+            "count": 4
+        },
+        {
+            "itemData": {
+                "instanceID": 30132
+            },
+            "count": 1
+        }
+    ],
+    "openBox": [
+        "Looting6",
+        "Looting5",
+        "Looting1",
+        "Looting4",
+        "Looting3",
+        "Looting2"
+    ]
 }
