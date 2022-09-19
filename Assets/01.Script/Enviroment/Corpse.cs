@@ -33,6 +33,6 @@ public class Corpse : MonoBehaviour,IObjects
 
     private void Start()
     {
-        Effect();
+        Effect(gameObject.GetComponentInParent<RoomObjCreate>().roomWidth);
     }
 }

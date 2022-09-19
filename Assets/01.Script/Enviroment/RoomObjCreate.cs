@@ -12,8 +12,7 @@ public class RoomObjCreate : MonoBehaviour
 
     [SerializeField]
     GameObject[] RoomObjs;
-    [SerializeField]
-    private int roomWidth;
+    public int roomWidth;
 
     public List<Transform> spawnPoints = new List<Transform>();
     public List<GameObject> objectPool = new List<GameObject>();
@@ -37,6 +36,7 @@ public class RoomObjCreate : MonoBehaviour
         foreach (var spawnPoint in spawnPoints)
         {
             GameObject _obj = GetInPool();
+            _obj?.transform.SetParent(this.transform);
             _obj?.transform.SetPositionAndRotation(spawnPoint.position, spawnPoint.rotation);
             _obj?.SetActive(true);
         }
