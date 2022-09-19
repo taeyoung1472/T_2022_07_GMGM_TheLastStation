@@ -19,7 +19,7 @@ public class RoomObjCreate : MonoBehaviour
     public List<GameObject> objectPool = new List<GameObject>();
 
 
-    private IObjects[] obj;
+    private IObjects obj;
 
     private void Start()
     {
