@@ -30,4 +30,9 @@ public class Corpse : MonoBehaviour,IObjects
                 break;
         }
     }
+
+    private void Start()
+    {
+        Effect();
+    }
 }

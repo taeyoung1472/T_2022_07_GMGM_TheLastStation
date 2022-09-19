@@ -19,12 +19,9 @@ public class RoomObjCreate : MonoBehaviour
     public List<GameObject> objectPool = new List<GameObject>();
 
 
-    private IObjects obj;
-
     private void Start()
     {
         //추후 방에 들어갈 때 실행되도록 조정
-        CreatePool();
         Transform spawnPointEx = GameObject.Find("SpawnPointEx")?.transform;
         Transform objCreatePoint = this.transform;
 
@@ -32,8 +29,8 @@ public class RoomObjCreate : MonoBehaviour
         {
             spawnPoints.Add(oP);
         }
+        CreatePool();
         CreateObjs();
-        obj.Effect();
     }
     public void CreateObjs()
     {

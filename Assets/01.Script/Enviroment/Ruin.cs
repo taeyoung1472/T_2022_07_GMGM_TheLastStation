@@ -8,5 +8,11 @@ public class Ruin : MonoBehaviour,IObjects
     {
         //건물 잔해: 20% 확률로 등장, '삽' 도구로 상호작용해서 제거
         //철골 잔해: 10% 확률로 등장, '줄톱' 도구로 상호작용해서 제거
+        Debug.Log("잔해");
+    }
+
+    private void Start()
+    {
+        Effect();
     }
 }
