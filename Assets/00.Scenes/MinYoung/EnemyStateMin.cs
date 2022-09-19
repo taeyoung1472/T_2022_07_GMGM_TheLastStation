@@ -20,14 +20,18 @@ public class EnemyStateMin : MonoBehaviour
 
     protected EnemyStateMin nextState;
 
-public    float detectDist = 10.0f;
- public   float detectAngle = 30.0f;
+    public float detectDist = 10.0f;
+    public float detectAngle = 30.0f;
 
 
     public Transform[] wayPoints = null;
     public int wayCount = 0;
 
     public LayerMask playerLayer;
+
+    public List<String> restStateWord = new List<String>();
+    public List<String> walkStateWord = new List<String>();
+    public List<String> purseStateWord = new List<String>();
     private void Start()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
@@ -37,7 +41,7 @@ public    float detectDist = 10.0f;
 
     private IEnumerator EnemyRoutine()
     {
-        while(true)
+        while (true)
         {
             stateName = eState.WALK;
             yield return new WaitForSeconds(2f);
@@ -119,7 +123,7 @@ public    float detectDist = 10.0f;
         navMeshAgent.SetDestination(targetTrm.position);
     }
 
- 
+
     public bool CanSeePlayer()
     {
         //각도안에 추적
@@ -131,15 +135,15 @@ public    float detectDist = 10.0f;
         if (dir.magnitude < detectDist && angle < detectAngle)
         {
             RaycastHit hit;
-            if (Physics.Raycast(transform.position, dir, out hit, playerLayer ) )
+            if (Physics.Raycast(transform.position, dir, out hit, playerLayer))
             {
                 if (hit.transform == targetTrm)
                 {
-                  return true;
+                    return true;
                 }
             }
         }
-         return false;
+        return false;
         //Vector3 direction = targetTrm.position - transform.position; // 내가 플레이어를 바라보는 방향
         //float angle = Mathf.Atan2(direction.normalized.y, direction.normalized.x) * Mathf.Rad2Deg;
         //bool isFront = Vector3.Dot(direction.normalized, transform.position.normalized) > 0f;
