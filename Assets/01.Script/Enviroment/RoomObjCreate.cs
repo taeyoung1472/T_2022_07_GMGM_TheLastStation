@@ -11,33 +11,60 @@ public class RoomObjCreate : MonoBehaviour
     [Header("배치 오브젝트")]
 
     [SerializeField]
-    private GameObject corpse;
-    [SerializeField]
-    private GameObject itemBox;
-    [SerializeField]
-    private GameObject ruin;
+    GameObject[] RoomObjs;
     [SerializeField]
     private int roomWidth;
 
     public List<Transform> spawnPoints = new List<Transform>();
+    public List<GameObject> objectPool = new List<GameObject>();
 
-    private IObjects obj;
+
+    private IObjects[] obj;
 
     private void Start()
     {
         //추후 방에 들어갈 때 실행되도록 조정
+        CreatePool();
+        Transform spawnPointEx = GameObject.Find("SpawnPointEx")?.transform;
         Transform objCreatePoint = this.transform;
+
         foreach(Transform oP in objCreatePoint)
         {
             spawnPoints.Add(oP);
         }
+        CreateObjs();
         obj.Effect();
     }
     public void CreateObjs()
     {
-        int idx = spawnPoints.Count;
+        foreach (var spawnPoint in spawnPoints)
+        {
+            GameObject _obj = GetInPool();
+            _obj?.transform.SetPositionAndRotation(spawnPoint.position, spawnPoint.rotation);
+            _obj?.SetActive(true);
+        }
+    }
 
-        GameObject _obj = new GameObject();
-        _obj?.transform.SetPositionAndRotation(spawnPoints[idx].position, spawnPoints[idx].rotation);
+    public void CreatePool()
+    {
+        for (int i = 0; i < spawnPoints.Count; i++)
+        {
+            var spawnValue = spawnPoints[i]?.GetComponent<StateValue>();
+            var _obj = Instantiate<GameObject>(RoomObjs[(int)spawnValue.spawnState]);
+            _obj.name = spawnValue.spawnState.ToString();
+            _obj.SetActive(false);
+            objectPool.Add(_obj);
+        }
+    }
+
+    public GameObject GetInPool()
+    {
+        foreach (var _object in objectPool)
+        {
+            if (!_object.activeSelf)
+                return _object;
+        }
+
+        return null;
     }
 }

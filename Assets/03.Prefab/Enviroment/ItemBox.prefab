@@ -48,6 +48,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   randomItemDropCount: 3
+  airDropWeight: 0
+  isCheck: 0
   items:
   - {fileID: 11400000, guid: 4ddfee7e2398ef44da34ba916dccf962, type: 2}
   - {fileID: 11400000, guid: 357844899f4c65847bc666db98e06e61, type: 2}
