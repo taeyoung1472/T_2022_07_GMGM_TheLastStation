@@ -4,3 +4,10 @@ public enum SpawnState
     ITEMBOX,
     RUIN
 }
+
+public enum CorpseState
+{
+    NONE = 0,
+    BASIC,
+    ROTTEN
+}

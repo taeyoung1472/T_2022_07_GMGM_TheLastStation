@@ -6,21 +6,6 @@ public interface IObjects
 {
     void Effect(int roomWidth = 1);
 }
-public interface IItemDroppers
-{
-    //게임오브젝트를 받아와서 그 게임오브젝트 종류에 따라 드롭하는 아이템 변경
-    //냉장고는 음식 아이템, 의료용 선반은 약품 아이템을 드롭함
-    void ItemDrop();
-
-}
-public class Ruin : IObjects
-{
-    public void Effect(int roomWidth = 1)
-    {
-        //건물 잔해: 20% 확률로 등장, '삽' 도구로 상호작용해서 제거
-        //철골 잔해: 10% 확률로 등장, '줄톱' 도구로 상호작용해서 제거
-    }
-}
 public class RoomObjCreate : MonoBehaviour
 {
     [Header("배치 오브젝트")]
@@ -31,6 +16,8 @@ public class RoomObjCreate : MonoBehaviour
     private GameObject itemBox;
     [SerializeField]
     private GameObject ruin;
+    [SerializeField]
+    private int roomWidth;
 
     public List<Transform> spawnPoints = new List<Transform>();
 
