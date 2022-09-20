@@ -16,6 +16,7 @@ public class Ruin : MonoBehaviour,IObjects
         switch(ruinState)
         {
             case RuinState.NONE:
+                gameObject.SetActive(false);
                 Debug.Log("ÀÜÇØ ¾øÀ½");
                 break;
             case RuinState.BUILDING:
