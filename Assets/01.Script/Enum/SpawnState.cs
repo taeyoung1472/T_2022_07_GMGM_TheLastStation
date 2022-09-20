@@ -11,3 +11,10 @@ public enum CorpseState
     BASIC,
     ROTTEN
 }
+
+public enum RuinState
+{
+    NONE = 0,
+    BUILDING,
+    IRON
+}
