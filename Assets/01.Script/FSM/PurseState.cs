@@ -29,12 +29,18 @@ public class PurseState : State<MonsterFSM>
         {
             _agent.SetDestination(stateMachineClass.target.position);
 
+            if (stateMachineClass.getFlagAtk)
+            {
+                Debug.Log("æÓ≈√±Ú≤Ù¥œ±Ó");
+                stateMachine.ChangeState<AttackState>();
+            }
             if (_agent.remainingDistance > _agent.stoppingDistance)
             {
                 Debug.Log("???");
                 //_animator.SetFloat(hashMoveSpd, _agent.velocity.magnitude / _agent.speed, 0.1f, Time.deltaTime);
                 return;
             }
+          
         }
     }
     public override void OnEnd()

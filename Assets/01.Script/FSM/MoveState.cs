@@ -48,7 +48,7 @@ public class MoveState : State<MonsterFSM>
             if (stateMachineClass.getFlagAtk)
             {
                 Debug.Log("무브에서 어택으로 감");
-                //stateMachine.ChangeState<AttackState>();
+                stateMachine.ChangeState<AttackState>();
             }
             else
             {
