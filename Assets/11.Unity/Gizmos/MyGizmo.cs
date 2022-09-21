@@ -1,9 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using System;
 using UnityEditor;
-using UnityEngineInternal;
+using UnityEngine;
 
 [AddComponentMenu("Gizmo/MyGizmo")]
 public class MyGizmo : MonoBehaviour
@@ -18,11 +14,11 @@ public class MyGizmo : MonoBehaviour
     [Space(15)]
     [SerializeField] private Color color = Color.red;
     [SerializeField] private Vector3 center = Vector3.zero;
-    [SerializeField] private float size = 1;
+    [SerializeField] private Vector3 size = Vector3.one;
 
     public void OnDrawGizmos()
     {
-        if(drawMode == GizmoDrawMode.OnSelected)
+        if (drawMode == GizmoDrawMode.OnSelected)
         {
             if (Selection.activeTransform != transform)
                 return;
@@ -36,10 +32,10 @@ public class MyGizmo : MonoBehaviour
                 switch (meshType)
                 {
                     case GizmoMeshType.Circle:
-                        Gizmos.DrawWireSphere(center, size);
+                        Gizmos.DrawWireSphere(transform.position + center, size.x);
                         break;
                     case GizmoMeshType.Box:
-                        Gizmos.DrawWireCube(center, Vector3.one * size);
+                        Gizmos.DrawWireCube(transform.position + center, size);
                         break;
                 }
                 break;
@@ -47,10 +43,10 @@ public class MyGizmo : MonoBehaviour
                 switch (meshType)
                 {
                     case GizmoMeshType.Circle:
-                        Gizmos.DrawSphere(center, size);
+                        Gizmos.DrawSphere(transform.position + center, size.x);
                         break;
                     case GizmoMeshType.Box:
-                        Gizmos.DrawCube(center, Vector3.one * size);
+                        Gizmos.DrawCube(transform.position + center, size);
                         break;
                 }
                 break;
