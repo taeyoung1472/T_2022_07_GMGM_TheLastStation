@@ -4,20 +4,36 @@ using UnityEngine;
 
 public class AttackState : State<MonsterFSM>
 {
-    public override void OnUpdate(float dealtaTime)
+    private Animator animator;
+
+    //protected int hashAttack = Animator.StringToHash("Attack");
+
+    public override void OnAwake()
     {
-        throw new System.NotImplementedException();
+        //animator = stateMachineClass.GetComponentInChildren<Animator>();
     }
 
-    // Start is called before the first frame update
-    void Start()
+    public override void OnStart()
     {
-        
+        if (stateMachineClass.getFlagAtk)
+        {
+            Debug.Log("어택");
+            //animator?.SetTrigger(hashAttack);
+        }
+        else
+        {
+            stateMachine.ChangeState<PurseState>();
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void OnUpdate(float deltaTime)
     {
-        
+
+    }
+
+    public override void OnEnd()
+    {
+        //애니메이터 비헤비어트리에서 exit함수에서 아이들로 체인지
+        //stateMachine.ChangeState<IdleState>();
     }
 }
