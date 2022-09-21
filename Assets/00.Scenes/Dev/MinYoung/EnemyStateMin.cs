@@ -16,17 +16,22 @@ public class EnemyStateMin : MonoBehaviour
     private NavMeshAgent navMeshAgent;
 
 
-    public Transform playerTrm;
+    public Transform targetTrm;
 
     protected EnemyStateMin nextState;
 
-    float detectDist = 10.0f;
-    float detectAngle = 30.0f;
+    public float detectDist = 10.0f;
+    public float detectAngle = 30.0f;
 
 
     public Transform[] wayPoints = null;
     public int wayCount = 0;
 
+    public LayerMask playerLayer;
+
+    public List<String> restStateWord = new List<String>();
+    public List<String> walkStateWord = new List<String>();
+    public List<String> purseStateWord = new List<String>();
     private void Start()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
@@ -36,7 +41,7 @@ public class EnemyStateMin : MonoBehaviour
 
     private IEnumerator EnemyRoutine()
     {
-        while(true)
+        while (true)
         {
             stateName = eState.WALK;
             yield return new WaitForSeconds(2f);
@@ -64,12 +69,11 @@ public class EnemyStateMin : MonoBehaviour
         switch (stateName)
         {
             case eState.REST:
-                R();
+                Rest();
                 //가만히 있을때 하는행동
                 break;
             case eState.WALK:
-                A();
-                //Walk();
+                Walk();
                 //추적 행동
                 break;
             case eState.PURSUE:
@@ -88,18 +92,19 @@ public class EnemyStateMin : MonoBehaviour
                 break;
         }
     }
-    private void R()
+    private void Rest()
     {
-        StartCoroutine(Rest());
+        //StartCoroutine(Rest());
     }
+    /*
     private IEnumerator Rest()
     {
         Debug.Log("휴식 들어감");
         yield return new WaitForSeconds(3f);
         stateName = eState.WALK;
         Debug.Log("휴식 끝남");
-    }
-    private void A()
+    }*/
+    private void Walk()
     {
         if (wayCount >= wayPoints.Length)
         {
@@ -115,25 +120,44 @@ public class EnemyStateMin : MonoBehaviour
     public void FollowTarget()
     {
         Debug.Log("앙기모띠");
-        navMeshAgent.SetDestination(playerTrm.position);
+        navMeshAgent.SetDestination(targetTrm.position);
     }
+
 
     public bool CanSeePlayer()
     {
-        Vector3 direction = playerTrm.position - transform.position; // 내가 플레이어를 바라보는 방향
-        float angle = Mathf.Atan2(direction.normalized.y, direction.normalized.x) * Mathf.Rad2Deg;
-        bool isFront = Vector3.Dot(direction.normalized, transform.position.normalized) > 0f;
-        Debug.Log(Vector3.Dot(direction.normalized, transform.position.normalized));
+        //각도안에 추적
+        //박스캐스트 쏴서 플레이어에 맞으면 추적
+        Vector3 dir = targetTrm.position - transform.position;
+        float angle = Vector3.Angle(dir, transform.forward);
 
-        //float angle = Vector3.Angle(direction.normalized, transform.forward);
-
-        if (direction.magnitude < detectDist && angle < detectAngle && isFront)
+        Debug.Log(angle);
+        if (dir.magnitude < detectDist && angle < detectAngle)
         {
-            StopAllCoroutines();
-            return true;
+            RaycastHit hit;
+            if (Physics.Raycast(transform.position, dir, out hit, playerLayer))
+            {
+                if (hit.transform == targetTrm)
+                {
+                    return true;
+                }
+            }
         }
-
         return false;
+        //Vector3 direction = targetTrm.position - transform.position; // 내가 플레이어를 바라보는 방향
+        //float angle = Mathf.Atan2(direction.normalized.y, direction.normalized.x) * Mathf.Rad2Deg;
+        //bool isFront = Vector3.Dot(direction.normalized, transform.position.normalized) > 0f;
+        //Debug.Log(Vector3.Dot(direction.normalized, transform.position.normalized));
+
+        ////float angle = Vector3.Angle(direction.normalized, transform.forward);
+
+        //if (direction.magnitude < detectDist && angle < detectAngle && isFront)
+        //{
+        //    StopAllCoroutines();
+        //    return true;
+        //}
+
+        //return false;
     }
     public void Attack()
     {
