@@ -18,9 +18,8 @@ public class RoomObjCreate : MonoBehaviour
     public List<GameObject> objectPool = new List<GameObject>();
 
 
-    private void Start()
+    private void Awake()
     {
-        //추후 방에 들어갈 때 실행되도록 조정
         Transform objCreatePoint = this.transform;
 
         foreach(Transform oP in objCreatePoint)
