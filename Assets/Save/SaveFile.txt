@@ -2,7 +2,10 @@
     "hasSawTrail": true,
     "curStationIndex": 0,
     "inventory": [],
-    "openBox": [],
+    "openBox": [
+        "Looting6",
+        "Looting1"
+    ],
     "sheetData": [
         {
             "cell": [
