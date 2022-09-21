@@ -20,6 +20,8 @@ public class MonsterFSM : MonoBehaviour
     {
         enemyStateMachine = new StateMachine<MonsterFSM>(this, new IdleState());
         enemyStateMachine.AddStateList(new MoveState());
+        enemyStateMachine.AddStateList(new PurseState());
+        enemyStateMachine.AddStateList(new AttackState());
     }
 
     void Update()

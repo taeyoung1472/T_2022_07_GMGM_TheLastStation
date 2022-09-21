@@ -25,9 +25,11 @@ public class MoveState : State<MonsterFSM>
 
     public override void OnUpdate(float dealtaTime)
     {
-        //Transform target = stateMachineClass.SearchEnemy();
+        Transform target = stateMachineClass.SearchEnemy();
 
         time += Time.deltaTime;
+
+       
 
         if (stateMachineClass.wayCount >= stateMachineClass.wayPoints.Length)
         {
@@ -37,30 +39,29 @@ public class MoveState : State<MonsterFSM>
         if (_agent.velocity == Vector3.zero)
         {
             _agent.SetDestination(stateMachineClass.wayPoints[stateMachineClass.wayCount].position);
-            Debug.Log( stateMachineClass.wayCount);
+            Debug.Log(stateMachineClass.wayCount);
             //stateMachineClass.wayCount++;
         }
 
-        if (time > 2f)
+        else if (target)
+        {
+            if (stateMachineClass.getFlagAtk)
+            {
+                Debug.Log("무브에서 어택으로 감");
+                //stateMachine.ChangeState<AttackState>();
+            }
+            else
+            {
+                Debug.Log("무브에서 추적으로 감");
+                stateMachine.ChangeState<PurseState>();
+            }
+        }
+        else if(time > 2f)
         {
             Debug.Log("2초지남");
             Debug.Log("무브에서 아이들로 감");
             stateMachine.ChangeState<IdleState>();
         }
-
-        //if (target)
-        //{
-        //    if (stateMachineClass.getFlagAtk)
-        //    {
-        //        Debug.Log("무브에서 어택으로 감");
-        //        stateMachine.ChangeState<AttackState>();
-        //    }
-        //    else
-        //    {
-        //        Debug.Log("무브에서 추적으로 감");
-        //        stateMachine.ChangeState<PurseState>();
-        //    }
-        //}
 
 
 
@@ -68,6 +69,5 @@ public class MoveState : State<MonsterFSM>
     public override void OnEnd()
     {
         stateMachineClass.wayCount++;
-        Debug.Log(stateMachineClass.wayCount);
     }
 }

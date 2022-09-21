@@ -513,7 +513,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 312909147}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.7, y: 1.1, z: 0}
+  m_LocalPosition: {x: -2.7, y: 1.1, z: -6.057}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1399,7 +1399,7 @@ GameObject:
   - component: {fileID: 1287759079}
   - component: {fileID: 1287759078}
   - component: {fileID: 1287759077}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: Enemy (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1422,8 +1422,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 2048
   eyeSight: 5
-  target: {fileID: 312909151}
-  atkRange: 2
+  target: {fileID: 0}
+  atkRange: 1.5
   wayPoints:
   - {fileID: 2118748564}
   - {fileID: 373226783}
@@ -1442,7 +1442,7 @@ NavMeshAgent:
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 1.5
+  m_StoppingDistance: 1.4
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -1575,7 +1575,7 @@ Transform:
   m_GameObject: {fileID: 1307041681}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.0324, y: 0, z: -0.2345}
-  m_LocalScale: {x: 0.8685, y: 1, z: 0.9010474}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
