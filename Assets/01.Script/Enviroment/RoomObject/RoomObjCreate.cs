@@ -21,7 +21,6 @@ public class RoomObjCreate : MonoBehaviour
     private void Start()
     {
         //추후 방에 들어갈 때 실행되도록 조정
-        Transform spawnPointEx = GameObject.Find("SpawnPointEx")?.transform;
         Transform objCreatePoint = this.transform;
 
         foreach(Transform oP in objCreatePoint)
