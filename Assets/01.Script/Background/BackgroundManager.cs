@@ -30,12 +30,12 @@ public class BackgroundManager : MonoSingleTon<BackgroundManager>
     int curBackgroundIdx;
     private void Start()
     {
-        foreach (var data in stationDataSO[JsonManager.Instance.Data.curStationIndex].backgroundDatas)
+        foreach (var data in stationDataSO[JsonManager.Data.curStationIndex].backgroundDatas)
         {
             backgroundDatas.Add(data);
         }
-        UIManager.Instance.SetMapUI(stationDataSO[JsonManager.Instance.Data.curStationIndex]);
-        UIManager.Instance.ActiveLatterPanel(JsonManager.Instance.Data.curStationIndex);
+        UIManager.Instance.SetMapUI(stationDataSO[JsonManager.Data.curStationIndex]);
+        UIManager.Instance.ActiveLatterPanel(JsonManager.Data.curStationIndex);
 
         backgrounds[0].Active(BackgroundType.Start);
         backgrounds[1].Active(backgroundDatas[curBackgroundIdx].backgroundType);
@@ -71,7 +71,7 @@ public class BackgroundManager : MonoSingleTon<BackgroundManager>
                 {
                     if (isEndPlace)
                     {
-                        if (JsonManager.Instance.Data.curStationIndex == 1)
+                        if (JsonManager.Data.curStationIndex == 1)
                         {
                             if (!isLoadScene)
                             {

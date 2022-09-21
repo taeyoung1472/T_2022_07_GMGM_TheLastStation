@@ -30,8 +30,8 @@ public class Car : MonoBehaviour
 
     public void End()
     {
-        JsonManager.Instance.Data.hasSawTrail = true;
-        JsonManager.Instance.Save();
+        JsonManager.Data.hasSawTrail = true;
+        JsonManager.Save();
         GameManager.Instance.LoadGame();
     }
 

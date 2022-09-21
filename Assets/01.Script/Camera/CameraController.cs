@@ -76,15 +76,15 @@ public class CameraController : MonoSingleTon<CameraController>
             }
             else if (hit.transform.CompareTag("MouseCheck"))
             {
-                CharacterManager.Instance.Controll(ControllType.Move, isLeftClick, GroundPos(hit));
+                CharacterManager.Instance.Controll(ControllType.Move, isLeftClick, GetGroudPos(hit.point));
             }
             else if (hit.transform.CompareTag("Button"))
             {
-                CharacterManager.Instance.Controll(ControllType.Act, isLeftClick, GroundPos(hit), hit.transform.GetComponent<SpriteButton>());
+                CharacterManager.Instance.Controll(ControllType.Act, isLeftClick, GetGroudPos(hit.point), hit.transform.GetComponent<SpriteButton>());
             }
             else if (hit.transform.GetComponent("AttackButton"))
             {
-                CharacterManager.Instance.Controll(ControllType.Attack, isLeftClick, GroundPos(hit), hit.transform.GetComponent<SpriteButton>());
+                CharacterManager.Instance.Controll(ControllType.Attack, isLeftClick, GetGroudPos(hit.point), hit.transform.GetComponent<SpriteButton>());
             }
             UISoundManager.Instance.CommandClick();
         }
@@ -110,10 +110,10 @@ public class CameraController : MonoSingleTon<CameraController>
         }
     }
 
-    private Vector3 GroundPos(RaycastHit hit)
+    public Vector3 GetGroudPos(Vector3 pos)
     {
         RaycastHit hitCheck;
-        if (Physics.Raycast(hit.point, Vector3.down, out hitCheck, 100, rayGroundMask))
+        if (Physics.Raycast(pos, Vector3.down, out hitCheck, 100, rayGroundMask))
         {
             return hitCheck.point;
         }

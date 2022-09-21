@@ -6,16 +6,26 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoSingleTon<GameManager>
 {
-    [SerializeField] private AudioMixerGroup effectGroup;
-    public AudioMixerGroup EffectGroup { get { return effectGroup; } }
     #region ¾À
+
+    public void Awake()
+    {
+        JsonManager.DisplayData();
+        JsonManager.Load();
+    }
+
+    public void OnApplicationQuit()
+    {
+        JsonManager.Save();
+    }
+
     public void LoadMenu()
     {
         LoadingSceneManager.LoadScene(0);
     }
     public void LoadGame()
     {
-        if (!JsonManager.Instance.Data.hasSawTrail)
+        if (!JsonManager.Data.hasSawTrail)
         {
             LoadingSceneManager.LoadScene(3);
         }
@@ -27,7 +37,7 @@ public class GameManager : MonoSingleTon<GameManager>
     public void LoadStation()
     {
         LoadingSceneManager.LoadScene(2);
-    }
+    }   
 
     public void LoadDemoEnding()
     {
@@ -41,8 +51,8 @@ public class GameManager : MonoSingleTon<GameManager>
     #endregion
     public void ExitStation()
     {
-        JsonManager.Instance.Data.curStationIndex++;
-        JsonManager.Instance.Save();
+        JsonManager.Data.curStationIndex++;
+        JsonManager.Save();
         LoadGame();
     }
 }

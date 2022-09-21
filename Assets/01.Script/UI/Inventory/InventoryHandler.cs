@@ -24,7 +24,7 @@ public class InventoryHandler : MonoSingleTon<InventoryHandler>
     {
         if (!isInit)
         {
-            foreach (var data in JsonManager.Instance.Data.inventory)
+            foreach (var data in JsonManager.Data.inventory)
             {
                 for (int i = 0; i < data.count; i++)
                 {
@@ -38,7 +38,7 @@ public class InventoryHandler : MonoSingleTon<InventoryHandler>
             buttonDic.Add(btn.gameObject.name, btn.gameObject);
         }
         if (buttonList.Count == 0) { return; }
-        foreach (var str in JsonManager.Instance.Data.openBox)
+        foreach (var str in JsonManager.Data.openBox)
         {
             buttonDic[str].transform.GetComponentInChildren<SpriteButton>().gameObject.SetActive(false);
         }
@@ -48,7 +48,7 @@ public class InventoryHandler : MonoSingleTon<InventoryHandler>
     {
         if (!isInit)
         {
-            JsonManager.Instance.Data.inventory = new List<InventoryItemData>();
+            JsonManager.Data.inventory = new List<InventoryItemData>();
             foreach (var data in itemsDic.Keys)
             {
                 InventoryItemData itemData = new InventoryItemData();
@@ -58,7 +58,7 @@ public class InventoryHandler : MonoSingleTon<InventoryHandler>
                 itemData.itemData = data;
                 itemData.count = cnt;
 
-                JsonManager.Instance.Data.inventory.Add(itemData);
+                JsonManager.Data.inventory.Add(itemData);
             }
         }
         else
@@ -67,7 +67,7 @@ public class InventoryHandler : MonoSingleTon<InventoryHandler>
             {
                 bool hasKey = false;
                 InventoryItemData hasDt = null;
-                foreach (var dt in JsonManager.Instance.Data.inventory)
+                foreach (var dt in JsonManager.Data.inventory)
                 {
                     if (dt.itemData == data)
                     {
@@ -88,11 +88,11 @@ public class InventoryHandler : MonoSingleTon<InventoryHandler>
                     itemData.itemData = data;
                     itemData.count = cnt;
 
-                    JsonManager.Instance.Data.inventory.Add(itemData);
+                    JsonManager.Data.inventory.Add(itemData);
                 }
             }
         }
-        JsonManager.Instance.Save();
+        JsonManager.Save();
     }
 
     public void Add(ItemDataSO data)

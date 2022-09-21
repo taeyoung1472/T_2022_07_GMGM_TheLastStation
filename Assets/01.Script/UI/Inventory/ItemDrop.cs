@@ -42,7 +42,7 @@ public class ItemDrop : MonoBehaviour
             }
             if (isCheck)
             {
-                JsonManager.Instance.Data.openBox.Add(gameObject.name);
+                JsonManager.Data.openBox.Add(gameObject.name);
             }
             UIManager.Instance.ActiveInventory();
             spriteButtonChild.gameObject.SetActive(false);

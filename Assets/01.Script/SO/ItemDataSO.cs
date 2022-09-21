@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "SO/ItemData")]
@@ -16,9 +15,42 @@ public class ItemDataSO : ScriptableObject
     [Header("Drop ฐüทร")]
     public int dropWeight = 1;
 
+    /*[ContextMenu("Rename")]
+    public void Rename()
+    {
+        Utility.RenameFile("Assets/06.SO/Item/Item", $"{name}.asset", $"{itemId}. {itemName}.asset");
+        Debug.Log($"Name : {name}");
+    }*/
+
+    public void SetIndex()
+    {
+        if (name.Contains("ID "))
+        {
+            itemId = Utility.ParseStringToInt(name.Replace("ID ", ""));
+        }
+    }
+
+    public void LoadData(GoogleSheetData data)
+    {
+        itemId = Utility.ParseStringToInt(data.cell[(int)ItemIndex.ID]);
+        category = Utility.ParseStringToEnum<ItemCategory>(data.cell[(int)ItemIndex.Category]);
+        itemName = data.cell[(int)ItemIndex.Name];
+        itemDesc = data.cell[(int)ItemIndex.Desc];
+        maxStackAbleCount = Utility.ParseStringToInt(data.cell[(int)ItemIndex.MaxStackAbleCount]);
+        dropWeight = Utility.ParseStringToInt(data.cell[(int)ItemIndex.DropWeight]);
+    }
 }
 public enum ItemCategory
 {
-    Production,
-    Food
+    Food,
+    Weapon,
+    Material,
+    Armor,
+    Medicine,
+    furniture,
+    ProductionTable,
+    Tool,
+    HighQualityMaterial,
+    TurretModule,
+    ETC
 }
