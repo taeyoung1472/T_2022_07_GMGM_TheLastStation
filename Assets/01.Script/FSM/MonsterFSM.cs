@@ -20,13 +20,12 @@ public class MonsterFSM : MonoBehaviour
     {
         enemyStateMachine = new StateMachine<MonsterFSM>(this, new IdleState());
         enemyStateMachine.AddStateList(new MoveState());
-        enemyStateMachine.AddStateList(new PurseState());
-        enemyStateMachine.AddStateList(new AttackState());
     }
 
     void Update()
     {
-        enemyStateMachine.Update(Time.deltaTime);        
+        enemyStateMachine.Update(Time.deltaTime);
+        Debug.Log(enemyStateMachine.getNowState);
     }
     public Transform SearchEnemy()
     {
@@ -54,4 +53,13 @@ public class MonsterFSM : MonoBehaviour
             return (distance <= atkRange);
         }
     }
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, eyeSight);
+
+        Gizmos.color = Color.black;
+        Gizmos.DrawWireSphere(transform.position, atkRange);       
+    }
+        
 }
