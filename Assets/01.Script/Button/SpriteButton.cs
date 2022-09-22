@@ -9,28 +9,26 @@ public class SpriteButton : MonoBehaviour
 {
     [SerializeField] private UnityEvent<Character> buttonEvent;
     [Range(0, 20)][SerializeField] private float duration;
-    [SerializeField] private Transform slider;
-    private Transform slider_Fill;
     [SerializeField] private bool isReset = false;
-    Character usingCharacter;
+    private Transform slider_Fill;
+    private Character usingCharacter;
     public Character UsingCharacter { get { return usingCharacter; } set { usingCharacter = value; } }
     public float Duration { get { return duration; } set { duration = value; } }
     private float curDur;
     private bool isUsing;
 
+    private Transform slider;
+
     AudioSource audioSource;
     float vol;
 
-    public void Start()
+    public virtual void Start()
     {
-        audioSource = gameObject.AddComponent<AudioSource>();
-        audioSource.Stop();
-        audioSource.loop = true;
-        audioSource.volume = 0f;
-        audioSource.outputAudioMixerGroup = GameManager.Instance.EffectGroup;
+        audioSource = gameObject.GetComponent<AudioSource>();
         audioSource.clip = UISoundManager.Instance.Data.actSound;
-        audioSource.Play();
+
         curDur = duration;
+        slider = transform.Find("Slider");
         if(curDur == 0)
         {
             slider.gameObject.SetActive(false);
@@ -54,9 +52,9 @@ public class SpriteButton : MonoBehaviour
                 curDur = duration;
                 isUsing = false;
                 UsingCharacter = null;
-                Color color;
-                ColorUtility.TryParseHtmlString("#545454FF", out color);
-                gameObject.GetComponent<SpriteRenderer>().color = color;
+                //Color color;
+                //ColorUtility.TryParseHtmlString("#545454FF", out color);
+                //gameObject.GetComponent<SpriteRenderer>().color = color;
             }
         }
     }
@@ -71,9 +69,9 @@ public class SpriteButton : MonoBehaviour
     {
         if (isUsing) return;
         print($"{usingCharacter.Data.name} 이가 {name}을 작동시키는중");
-        Color color;
-        ColorUtility.TryParseHtmlString("#FF8000FF", out color);
-        gameObject.GetComponent<SpriteRenderer>().color = color;
+        //Color color;
+        //ColorUtility.TryParseHtmlString("#FF8000FF", out color);
+        //gameObject.GetComponent<SpriteRenderer>().color = color;
         vol = 1;
         if (isReset)
         {
@@ -88,9 +86,9 @@ public class SpriteButton : MonoBehaviour
         {
             curDur = duration;
         }
-        Color color;
-        ColorUtility.TryParseHtmlString("#545454FF", out color);
-        gameObject.GetComponent<SpriteRenderer>().color = color;
+        //Color color;
+        //ColorUtility.TryParseHtmlString("#545454FF", out color);
+        //gameObject.GetComponent<SpriteRenderer>().color = color;
         vol = 0;
         UsingCharacter = null;
         isUsing = false;

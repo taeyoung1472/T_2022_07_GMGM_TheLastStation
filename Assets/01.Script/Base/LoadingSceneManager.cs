@@ -16,9 +16,17 @@ public class LoadingSceneManager : MonoBehaviour
 
     public static void LoadScene(int sceneIndex)
     {
-        Time.timeScale = 1;
+        /*Time.timeScale = 1;
         nextScene = sceneIndex;
         SceneManager.LoadScene("Loading");
+        SceneChangeCanvas.Active();*/
+        print($"·Îµù ¾À : {sceneIndex}");
+        Time.timeScale = 1;
+        nextScene = sceneIndex;
+        SceneChangeCanvas.Active(() =>
+        {
+            SceneManager.LoadScene("Loading");
+        });
     }
 
     IEnumerator LoadScene()
@@ -30,7 +38,6 @@ public class LoadingSceneManager : MonoBehaviour
         float timer = 0.0f;
         while (!op.isDone)
         {
-            print($"¾À ¹Ù²Ù´ÂÁß : {op.progress}");
             yield return null;
             timer += Time.deltaTime;
             if (op.progress < 0.9f)
@@ -47,6 +54,7 @@ public class LoadingSceneManager : MonoBehaviour
                 if (progressBar.fillAmount == 1.0f)
                 {
                     op.allowSceneActivation = true;
+                    SceneChangeCanvas.DeActive();
                     yield break;
                 }
             }

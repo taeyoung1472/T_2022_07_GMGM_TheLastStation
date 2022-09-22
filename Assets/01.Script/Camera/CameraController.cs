@@ -1,9 +1,7 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine.AI;
 using Cinemachine;
+using System.Collections;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class CameraController : MonoSingleTon<CameraController>
 {
@@ -43,12 +41,12 @@ public class CameraController : MonoSingleTon<CameraController>
     {
         cam = Camera.main;
         StartCoroutine(ZoomInput());
+        StartCoroutine(InputSystem());
     }
     public void Update()
     {
         Zoom();
         Move();
-        InputHandle();
     }
 
     public Vector3 GetMousePos()
@@ -61,23 +59,15 @@ public class CameraController : MonoSingleTon<CameraController>
         return Vector3.zero;
     }
 
-    private void InputHandle()
-    {
-        if (Input.GetKeyDown(KeyCode.Mouse1))
-        {
-            isSwiping = true;
-        }
-        if (Input.GetKeyUp(KeyCode.Mouse1))
-        {
-            isSwiping = false;
-        }
-    }
-
     public void ShootRay()
     {
+        bool isLeftClick = Input.GetKeyDown(KeyCode.Mouse0);
+
         Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+
         if (Physics.Raycast(ray, out hit, 1000, rayMask))
         {
+            print(hit.transform.name);
             mouseParticle.transform.position = hit.point;
             mouseParticle.Play();
             if (hit.transform.CompareTag("Character"))
@@ -86,24 +76,44 @@ public class CameraController : MonoSingleTon<CameraController>
             }
             else if (hit.transform.CompareTag("MouseCheck"))
             {
-                CharacterManager.Instance.Controll(ControllType.Move, GroundPos(hit));
+                CharacterManager.Instance.Controll(ControllType.Move, isLeftClick, GetGroudPos(hit.point));
             }
             else if (hit.transform.CompareTag("Button"))
             {
-                CharacterManager.Instance.Controll(ControllType.Act, GroundPos(hit), hit.transform.GetComponent<SpriteButton>());
+                CharacterManager.Instance.Controll(ControllType.Act, isLeftClick, GetGroudPos(hit.point), hit.transform.GetComponent<SpriteButton>());
             }
             else if (hit.transform.GetComponent("AttackButton"))
             {
-                CharacterManager.Instance.Controll(ControllType.Attack, GroundPos(hit), hit.transform.GetComponent<SpriteButton>());
+                CharacterManager.Instance.Controll(ControllType.Attack, isLeftClick, GetGroudPos(hit.point), hit.transform.GetComponent<SpriteButton>());
             }
             UISoundManager.Instance.CommandClick();
         }
     }
 
-    private Vector3 GroundPos(RaycastHit hit)
+    private IEnumerator InputSystem()
+    {
+        Vector2 onPressEnterPos;
+        Vector2 onPressExitPos;
+        while (true)
+        {
+            yield return new WaitUntil(() => (Input.GetKeyDown(KeyCode.Mouse0) || Input.GetKeyDown(KeyCode.Mouse1)));
+            onPressEnterPos = Input.mousePosition;
+            isSwiping = true;
+            yield return new WaitUntil(() => (Input.GetKeyUp(KeyCode.Mouse0) || Input.GetKeyUp(KeyCode.Mouse1)));
+            onPressExitPos = Input.mousePosition;
+            isSwiping = false;
+
+            if (Vector2.Distance(onPressEnterPos, onPressExitPos) < 50 && !EventSystem.current.IsPointerOverGameObject())
+            {
+                ShootRay();
+            }
+        }
+    }
+
+    public Vector3 GetGroudPos(Vector3 pos)
     {
         RaycastHit hitCheck;
-        if (Physics.Raycast(hit.point, Vector3.down, out hitCheck, 100, rayGroundMask))
+        if (Physics.Raycast(pos, Vector3.down, out hitCheck, 100, rayGroundMask))
         {
             return hitCheck.point;
         }
@@ -164,7 +174,7 @@ public class CameraController : MonoSingleTon<CameraController>
             else zoomIndex--;
             zoomIndex = Mathf.Clamp(zoomIndex, 0, zoomValue.Length - 1);
             zoomGoal = zoomValue[zoomIndex];
-            if(zoomIndex < zoomValue.Length - 1)
+            if (zoomIndex < zoomValue.Length - 1)
             {
                 cam.cullingMask = zoomCull;
             }

@@ -50,7 +50,7 @@ public class Train_Ending : MonoBehaviour
     }
     public void Horn()
     {
-        PoolManager.Instance.Pop(PoolType.Sound).GetComponent<AudioPoolObject>().Play(hornClip);
+        AudioManager.Play(hornClip);
     }
     public void Shoot()
     {
@@ -59,7 +59,7 @@ public class Train_Ending : MonoBehaviour
 
     public void Wing()
     {
-        PoolManager.Instance.Pop(PoolType.Sound).GetComponent<AudioPoolObject>().Play(monsterClip);
+        AudioManager.Play(monsterClip);
     }
 
     IEnumerator Brust()
@@ -67,7 +67,7 @@ public class Train_Ending : MonoBehaviour
         for (int i = 0; i < 3; i++)
         {
             yield return new WaitForSecondsRealtime(Random.Range(0.1f, 0.2f));
-            PoolManager.Instance.Pop(PoolType.Sound).GetComponent<AudioPoolObject>().Play(shootClip);
+            AudioManager.Play(shootClip);
 
         }
     }

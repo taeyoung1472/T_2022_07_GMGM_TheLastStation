@@ -25,16 +25,17 @@ public class BackgroundManager : MonoSingleTon<BackgroundManager>
     bool isEnd = false;
     bool isEndLate = false;
     bool isEndPlace = false;
+    bool isLoadScene = false;
     int curIndex;
     int curBackgroundIdx;
     private void Start()
     {
-        foreach (var data in stationDataSO[JsonManager.Instance.Data.curStationIndex].backgroundDatas)
+        foreach (var data in stationDataSO[JsonManager.Data.curStationIndex].backgroundDatas)
         {
             backgroundDatas.Add(data);
         }
-        UIManager.Instance.SetMapUI(stationDataSO[JsonManager.Instance.Data.curStationIndex]);
-        UIManager.Instance.ActiveLatterPanel(JsonManager.Instance.Data.curStationIndex);
+        UIManager.Instance.SetMapUI(stationDataSO[JsonManager.Data.curStationIndex]);
+        UIManager.Instance.ActiveLatterPanel(JsonManager.Data.curStationIndex);
 
         backgrounds[0].Active(BackgroundType.Start);
         backgrounds[1].Active(backgroundDatas[curBackgroundIdx].backgroundType);
@@ -70,13 +71,21 @@ public class BackgroundManager : MonoSingleTon<BackgroundManager>
                 {
                     if (isEndPlace)
                     {
-                        if(JsonManager.Instance.Data.curStationIndex == 1)
+                        if (JsonManager.Data.curStationIndex == 1)
                         {
-                            GameManager.Instance.LoadDemoEnding();
+                            if (!isLoadScene)
+                            {
+                                isLoadScene = true;
+                                GameManager.Instance.LoadDemoEnding();
+                            }
                         }
                         else
                         {
-                            GameManager.Instance.LoadStation();
+                            if (!isLoadScene)
+                            {
+                                GameManager.Instance.LoadStation();
+                                isLoadScene = true;
+                            }
                         }
                         return;
                     }

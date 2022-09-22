@@ -30,10 +30,10 @@ public class EndingUI : MonoBehaviour
         yield return new WaitForSeconds(2);
         canvasGroup.gameObject.SetActive(true);
         canvasAlpha = 1;
-        JsonManager.Instance.Data.curStationIndex = 0;
-        JsonManager.Instance.Data.hasSawTrail = false;
-        JsonManager.Instance.Data.openBox = new List<string>();
-        JsonManager.Instance.Data.inventory = new List<InventoryItemData>();
-        JsonManager.Instance.Save();
+        JsonManager.Data.curStationIndex = 0;
+        JsonManager.Data.hasSawTrail = false;
+        JsonManager.Data.openBox = new List<string>();
+        JsonManager.Data.inventory = new List<InventoryItemData>();
+        JsonManager.Save();
     }
 }

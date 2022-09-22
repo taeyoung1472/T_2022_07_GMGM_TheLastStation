@@ -30,8 +30,8 @@ public class Car : MonoBehaviour
 
     public void End()
     {
-        JsonManager.Instance.Data.hasSawTrail = true;
-        JsonManager.Instance.Save();
+        JsonManager.Data.hasSawTrail = true;
+        JsonManager.Save();
         GameManager.Instance.LoadGame();
     }
 
@@ -67,6 +67,6 @@ public class Car : MonoBehaviour
 
     private void PlaySound(AudioClip clip)
     {
-        PoolManager.Instance.Pop(PoolType.Sound).GetComponent<AudioPoolObject>().Play(clip);
+        AudioManager.Play(clip);
     }
 }

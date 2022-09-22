@@ -9,8 +9,10 @@ public class Character : MonoBehaviour, IDamageAble
 {
     #region 에니메이션 관련
     Animator animator;
-    readonly int MoveHash = Animator.StringToHash("Move");
+    readonly int VeloXHash = Animator.StringToHash("VeloX");
+    readonly int VeloYHash = Animator.StringToHash("VeloY");
     private float animH;
+    private float animV;
     #endregion
 
     #region 이동 관련
@@ -19,6 +21,8 @@ public class Character : MonoBehaviour, IDamageAble
     private float speed;
     private bool isAttaching = false;
     #endregion
+
+    Transform modelTrans;
 
     Action actAction;
 
@@ -31,10 +35,13 @@ public class Character : MonoBehaviour, IDamageAble
 
     public SpriteButton UsingButton { get { return usingButton; } set { usingButton = value; } }
 
+    bool isRunning = false;
+
     public virtual void Awake()
     {
         animator = transform.GetComponentInChildren<Animator>();
         agent = GetComponent<NavMeshAgent>();
+        modelTrans = animator.transform;
     }
 
     public virtual void Start()
@@ -47,6 +54,12 @@ public class Character : MonoBehaviour, IDamageAble
     {
         Animate();
         CheckDistance();
+    }
+
+    public void LateUpdate()
+    {
+        modelTrans.localPosition = Vector3.Lerp(modelTrans.localPosition, Vector3.zero, Time.deltaTime * 5f);
+        modelTrans.localRotation = Quaternion.Lerp(modelTrans.localRotation, Quaternion.identity, Time.deltaTime * 5f);
     }
 
     private void CheckDistance()
@@ -75,15 +88,18 @@ public class Character : MonoBehaviour, IDamageAble
 
     private void Animate()
     {
-        animH = Mathf.Lerp(animH, agent.velocity.x == 0 ? 0 : 1, Time.deltaTime * 5f);
-        animator.SetBool(MoveHash, Vector3.Distance(agent.destination, transform.position) > 0.25 + agent.stoppingDistance);
+        animH = Mathf.Lerp(animH, (isRunning ? 2 : 1) * (agent.velocity.z == 0 ? 0 : 1), Time.deltaTime * 5f);
+        animV = Mathf.Lerp(animV, agent.velocity.y == 0 ? 0 : 1, Time.deltaTime * 5f);
+        animator.SetFloat(VeloXHash, animH);
+        animator.SetFloat(VeloYHash, animV);
     }
 
-    public virtual void Move(Vector3 dir)
+    public virtual void Move(Vector3 dir, bool isRun)
     {
         agent.SetDestination(dir);
         actAction = null;
         isAttaching = true;
+        isRunning = isRun;
     }
 
     public virtual void Act(Action callBackAction, SpriteButton button)
@@ -131,7 +147,7 @@ public class Character : MonoBehaviour, IDamageAble
             while (isAttaching)
             {
                 AudioClip clip = UISoundManager.Instance.Data.footStep[Random.Range(0, UISoundManager.Instance.Data.footStep.Length)];
-                PoolManager.Instance.Pop(PoolType.Sound).GetComponent<AudioPoolObject>().Play(clip, Random.Range(0.9f, 1.1f));
+                AudioManager.Play(clip, Random.Range(0.9f, 1.1f));
                 yield return new WaitForSeconds(0.4f);
             }
         }

@@ -6,7 +6,7 @@ using UnityEngine;
 public class CharacterData : ScriptableObject
 {
     public Sprite profile;
-    public string name;
+    public string characterName;
     [TextArea(5,5)]
     public string desc;
     public float moveSpeed;
