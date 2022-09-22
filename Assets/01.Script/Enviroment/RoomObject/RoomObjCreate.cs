@@ -46,17 +46,8 @@ public class RoomObjCreate : MonoBehaviour
         {
             var spawnValue = spawnPoints[i]?.GetComponent<StateValue>();
             var _obj = Instantiate<GameObject>(RoomObjs[(int)spawnValue.spawnState]);
-            if(spawnValue.spawnState == SpawnState.ITEMBOX)
-            {
-                switch(Random.Range(0, 2))
-                {
-                    case 0:
-                        Destroy(_obj);
-                        return;
-                    case 1:
-                        break;
-                }
-            }
+            if (spawnValue.spawnState == SpawnState.ITEMBOX)
+                _obj.AddComponent<ItemBox>();
             _obj.name = spawnValue.spawnState.ToString();
             _obj.SetActive(false);
             objectPool.Add(_obj);
