@@ -238,6 +238,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81545f79485ce9e498fb98ed64e4a079, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  offset: 1.75
   barrels:
   - {fileID: 5311479569459467815}
   - {fileID: 3128740858032445091}
@@ -258,9 +259,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ee2a99a83677bc488ebfcef79314b65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spriteButton:
-  - {fileID: 0}
-  offset: -2.5
+  offset: -1.5
 --- !u!1001 &598018791280815473
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -279,6 +278,10 @@ PrefabInstance:
     - target: {fileID: 4138467719159286, guid: 11b3341345da647a19e132c5e760ba5a, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4138467719159286, guid: 11b3341345da647a19e132c5e760ba5a, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.6
       objectReference: {fileID: 0}
     - target: {fileID: 4138467719159286, guid: 11b3341345da647a19e132c5e760ba5a, type: 3}
       propertyPath: m_LocalScale.z

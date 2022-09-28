@@ -6,12 +6,25 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoSingleTon<GameManager>
 {
+    public ResourceManager resourceManager;
+    public ResourceManager ResourceManager 
+    { 
+        get 
+        {
+            if (resourceManager == null) 
+            {
+                resourceManager = new ResourceManager();
+            } 
+            return resourceManager;
+        } 
+    }
+
     #region ¾À
 
     public void Awake()
     {
-        JsonManager.DisplayData();
         JsonManager.Load();
+        JsonManager.DisplayData();
     }
 
     public void OnApplicationQuit()

@@ -7,7 +7,7 @@ public class EnviromentCraft : MonoBehaviour
 {
     [SerializeField] private Enviroment_Craft craftPrefab;
 
-    [Header("디버그")]
+    [Header("[디버그]")]
     public Enviroment demoEnviroment;
 
     private Enviroment_Craft curSelectedEnviroment;

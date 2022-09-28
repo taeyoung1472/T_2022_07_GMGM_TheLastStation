@@ -1,5 +1,9 @@
-using UnityEditor;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using System;
+using UnityEditor;
+using UnityEngineInternal;
 
 [AddComponentMenu("Gizmo/MyGizmo")]
 public class MyGizmo : MonoBehaviour
@@ -18,7 +22,7 @@ public class MyGizmo : MonoBehaviour
 
     public void OnDrawGizmos()
     {
-        if (drawMode == GizmoDrawMode.OnSelected)
+        if(drawMode == GizmoDrawMode.OnSelected)
         {
             if (Selection.activeTransform != transform)
                 return;
