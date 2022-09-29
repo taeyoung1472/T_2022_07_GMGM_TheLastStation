@@ -6,9 +6,9 @@ public class Shelf : MonoBehaviour
     List<ItemDataSO> list = new List<ItemDataSO>();
     
 
-    private void Awake()
+    private void Start()
     {
-        foreach (var dt in ItemDataManagement.dict[ItemCategory.Food].DTS)
+        foreach (var dt in ItemDataManagement.Dict[ItemCategory.Medicine].DTS)
         {
             list.Add(dt);
         }
