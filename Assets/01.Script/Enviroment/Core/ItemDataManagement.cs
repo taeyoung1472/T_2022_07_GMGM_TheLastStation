@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 
-public class SunBan : MonoBehaviour
+public class ItemDataManagement : MonoBehaviour
 {
-   Dictionary<ItemCategory, DT> dict = new Dictionary<ItemCategory, DT>();
+    public static Dictionary<ItemCategory, DT> dict = new Dictionary<ItemCategory, DT>();
 
-   ItemDataSO item;
+    ItemDataSO item;
 
     private void Awake()
     {
@@ -25,7 +25,7 @@ public class SunBan : MonoBehaviour
             }
         }
     }
-    class DT
+    public class DT
     {
         public List<ItemDataSO> DTS = new List<ItemDataSO>();
     }
