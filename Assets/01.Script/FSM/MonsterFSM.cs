@@ -4,42 +4,42 @@ using UnityEngine;
 
 public class MonsterFSM : MonoBehaviour
 {
-    public StateMachine<MonsterFSM> enemyStateMachine;
 
-    public LayerMask targetLayerMask; //최적화를 위해 
+    protected StateMachine<MonsterFSM> fsmManager;
+    public StateMachine<MonsterFSM> FsmManager => fsmManager;
+
+    public Transform[] posTargets;
+    public Transform posTarget = null;
+
+    public int posTargetIdx = 0;
+
     public float eyeSight;
-    public Transform target;
 
     public float atkRange;
 
-    
+    private FieldOfView _fov;
+
+    public Transform target => _fov.FirstTarget;
+
     public Transform[] wayPoints = null;
     public int wayCount = 0;
 
     void Start()
     {
-        enemyStateMachine = new StateMachine<MonsterFSM>(this, new IdleState());
-        enemyStateMachine.AddStateList(new MoveState());
-        enemyStateMachine.AddStateList(new PurseState());
-        enemyStateMachine.AddStateList(new AttackState());
+        fsmManager = new StateMachine<MonsterFSM>(this, new IdleState());
+        fsmManager.AddStateList(new MoveState());
+        fsmManager.AddStateList(new PurseState());
+        fsmManager.AddStateList(new AttackState());
+
+        _fov = GetComponent<FieldOfView>();
     }
 
     void Update()
     {
-        enemyStateMachine.Update(Time.deltaTime);
-        Debug.Log(enemyStateMachine.getNowState);
+        fsmManager.Update(Time.deltaTime);
     }
     public Transform SearchEnemy()
     {
-        target = null;
-
-        Collider[] findTargets = Physics.OverlapSphere(transform.position, eyeSight, targetLayerMask);
-
-        if (findTargets.Length > 0)
-        {
-            target = findTargets[0].transform;
-        }
-
         return target;
     }
     public bool getFlagAtk
@@ -55,6 +55,7 @@ public class MonsterFSM : MonoBehaviour
             return (distance <= atkRange);
         }
     }
+
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
@@ -63,5 +64,18 @@ public class MonsterFSM : MonoBehaviour
         Gizmos.color = Color.black;
         Gizmos.DrawWireSphere(transform.position, atkRange);       
     }
-        
+    public Transform SearchNextTargetPosition()
+    {
+        posTarget = null;
+
+        if (posTargets.Length > 0)
+        {
+            posTarget = posTargets[posTargetIdx];
+        }
+
+        posTargetIdx = (posTargetIdx + 1) % posTargets.Length;
+
+        return posTarget;
+    }
+
 }

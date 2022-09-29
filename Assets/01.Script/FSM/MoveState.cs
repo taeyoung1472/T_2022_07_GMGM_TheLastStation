@@ -5,22 +5,23 @@ using UnityEngine.AI;
 
 public class MoveState : State<MonsterFSM>
 {
-    //private Animator _animator;
+    private Animator _animator;
 
     private NavMeshAgent _agent;
 
-    //protected int hashMove = Animator.StringToHash("Move");
-    //protected int hashMoveSpd = Animator.StringToHash("MoveSpd");
+    protected int hashMove = Animator.StringToHash("Move");
 
     private float time = 0f;
     public override void OnAwake()
     {
-        //_animator = stateMachineClass.GetComponent<Animator>();
+        _animator = stateMachineClass.GetComponent<Animator>();
         _agent = stateMachineClass.GetComponent<NavMeshAgent>();
     }
     public override void OnStart()
     {
-        //_animator?.SetBool(hashMove, true);
+        Debug.Log("Move");
+        _animator?.SetBool(hashMove, true);
+        _agent.SetDestination(stateMachineClass.wayPoints[stateMachineClass.wayCount].position);
     }
 
     public override void OnUpdate(float dealtaTime)
@@ -29,8 +30,6 @@ public class MoveState : State<MonsterFSM>
 
         time += Time.deltaTime;
 
-       
-
         if (stateMachineClass.wayCount >= stateMachineClass.wayPoints.Length)
         {
             stateMachineClass.wayCount = 0;
@@ -38,36 +37,39 @@ public class MoveState : State<MonsterFSM>
 
         if (_agent.velocity == Vector3.zero)
         {
-            _agent.SetDestination(stateMachineClass.wayPoints[stateMachineClass.wayCount].position);
-            Debug.Log(stateMachineClass.wayCount);
-            //stateMachineClass.wayCount++;
+            _animator?.SetBool(hashMove, false);
         }
+        else
+        {
+            _animator?.SetBool(hashMove, true);
+        }
+        if (_agent.remainingDistance <= _agent.stoppingDistance)
+        {
+            stateMachine.ChangeState<IdleState>();
+        }
+        //if (time > 2f)
+        //{
+        //    stateMachine.ChangeState<IdleState>();
+        //}
 
-        else if (target)
+        if (target)
         {
             if (stateMachineClass.getFlagAtk)
             {
-                Debug.Log("무브에서 어택으로 감");
                 stateMachine.ChangeState<AttackState>();
             }
             else
             {
-                Debug.Log("무브에서 추적으로 감");
                 stateMachine.ChangeState<PurseState>();
             }
         }
-        else if(time > 2f)
-        {
-            Debug.Log("2초지남");
-            Debug.Log("무브에서 아이들로 감");
-            stateMachine.ChangeState<IdleState>();
-        }
-
 
 
     }
     public override void OnEnd()
     {
         stateMachineClass.wayCount++;
+        _animator?.SetBool(hashMove, false);
+        time = 0;
     }
 }

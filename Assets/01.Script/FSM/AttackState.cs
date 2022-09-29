@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class AttackState : State<MonsterFSM>
 {
-    private Animator animator;
+    private Animator _animator;
 
-    //protected int hashAttack = Animator.StringToHash("Attack");
+    protected int hashAttack = Animator.StringToHash("Attack");
 
     public override void OnAwake()
     {
-        //animator = stateMachineClass.GetComponentInChildren<Animator>();
+        _animator = stateMachineClass.GetComponentInChildren<Animator>();
     }
 
     public override void OnStart()
@@ -18,7 +18,7 @@ public class AttackState : State<MonsterFSM>
         if (stateMachineClass.getFlagAtk)
         {
             Debug.Log("╬Нец");
-            //animator?.SetTrigger(hashAttack);
+            _animator?.SetTrigger(hashAttack);
         }
         else
         {
