@@ -5,17 +5,28 @@ using System.IO;
 
 public class SunBan : MonoBehaviour
 {
-   Dictionary<int, ItemDataSO> dict = new Dictionary<int, ItemDataSO>();
+   Dictionary<ItemCategory, DT> dict = new Dictionary<ItemCategory, DT>();
 
    ItemDataSO item;
 
     private void Awake()
     {
-        for (int i = 0; i < Directory.GetFiles($"06.SO/Item/Item").Length; i++)
+        for (int i = 1; i <= Directory.GetFiles($"Assets/Resources/SO/Item/Item").Length / 2; i++)
         {
-            item = Directory.GetFiles($"06.SO/Item/Item/ID {i}") as ItemDataSO;
-            Debug.Log(item);
-            dict.Add((int)item.category, item);
+            item = Resources.Load($"SO/Item/Item/ID {i}") as ItemDataSO;
+            Debug.Log($"item : {i}");
+            if (!dict.ContainsKey(item.category))
+            {
+                dict.Add(item.category, new DT());
+            }
+            else
+            {
+                dict[item.category].DTS.Add(item);
+            }
         }
+    }
+    class DT
+    {
+        public List<ItemDataSO> DTS = new List<ItemDataSO>();
     }
 }
