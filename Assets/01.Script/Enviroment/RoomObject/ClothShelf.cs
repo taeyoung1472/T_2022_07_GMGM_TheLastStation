@@ -15,4 +15,9 @@ public class ClothShelf : Shelf
         for (int i = 0; i < Random.Range(2, 6); i++)
             InventoryHandler.Instance.Add(list[Random.Range(0, list.Count)]);
     }
+
+    private void Start()
+    {
+        Effect();
+    }
 }
