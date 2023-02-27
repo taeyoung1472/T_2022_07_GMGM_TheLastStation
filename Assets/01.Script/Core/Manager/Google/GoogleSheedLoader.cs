@@ -1,13 +1,13 @@
 using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using UnityEditor;
+using UnityEngine;
 using UnityEngine.Networking;
 
 public static class GoogleSheedLoader
 {
     // edit?~ 는 삭재한다
     // export?format=tsv&range{범위1}:{범위2} 추가한다
+#if UNITY_EDITOR
     readonly static string sheetURL = "https://docs.google.com/spreadsheets/d/1rx2RdHHTRSjZpwRRCt2-ui3LMjzYpaoYvxIEvg6W8LU/export?format=tsv&rangeA2:F";
     static string sheetData = "";
 
@@ -16,7 +16,7 @@ public static class GoogleSheedLoader
     [MenuItem("Taeyoung/Google/Load")]
     public static void Load()
     {
-        if(cor == null)
+        if (cor == null)
         {
             cor = new GameObject("@ Cor").AddComponent<CorClass>();
         }
@@ -73,7 +73,7 @@ public static class GoogleSheedLoader
                 JsonManager.Data.sheetData.Add(new GoogleSheetData());
                 for (int j = 0; j < colum.Length; j++)
                 {
-                    JsonManager.Data.sheetData[i].cell.Add(colum[j]); 
+                    JsonManager.Data.sheetData[i].cell.Add(colum[j]);
                 }
             }
 
@@ -82,6 +82,7 @@ public static class GoogleSheedLoader
             DestroyImmediate(gameObject);
         }
     }
+#endif
 }
 public enum ItemIndex
 {

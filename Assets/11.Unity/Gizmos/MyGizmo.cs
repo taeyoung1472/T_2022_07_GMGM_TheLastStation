@@ -1,9 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using System;
 using UnityEditor;
-using UnityEngineInternal;
+using UnityEngine;
 
 [AddComponentMenu("Gizmo/MyGizmo")]
 public class MyGizmo : MonoBehaviour
@@ -20,9 +16,10 @@ public class MyGizmo : MonoBehaviour
     [SerializeField] private Vector3 center = Vector3.zero;
     [SerializeField] private Vector3 size = Vector3.one;
 
+#if UNITY_EDITOR
     public void OnDrawGizmos()
     {
-        if(drawMode == GizmoDrawMode.OnSelected)
+        if (drawMode == GizmoDrawMode.OnSelected)
         {
             if (Selection.activeTransform != transform)
                 return;
@@ -56,6 +53,7 @@ public class MyGizmo : MonoBehaviour
                 break;
         }
     }
+#endif
 
     enum GizmoMeshType
     {

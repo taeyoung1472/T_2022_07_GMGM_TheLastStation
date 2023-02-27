@@ -1,4 +1,3 @@
-using System.IO;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "SO/ItemData")]
@@ -14,6 +13,7 @@ public class ItemDataSO : ScriptableObject
     public string itemDesc = "아이템 설명";
     [Header("Drop 관련")]
     public int dropWeight = 1;
+    //public int temp;
 
     /*[ContextMenu("Rename")]
     public void Rename()
@@ -24,6 +24,7 @@ public class ItemDataSO : ScriptableObject
 
     public void SetIndex()
     {
+        Debug.Log("SET INDEX");
         if (name.Contains("ID "))
         {
             itemId = Utility.ParseStringToInt(name.Replace("ID ", ""));
@@ -32,6 +33,7 @@ public class ItemDataSO : ScriptableObject
 
     public void LoadData(GoogleSheetData data)
     {
+        Debug.Log("LOAD DATA");
         itemId = Utility.ParseStringToInt(data.cell[(int)ItemIndex.ID]);
         category = Utility.ParseStringToEnum<ItemCategory>(data.cell[(int)ItemIndex.Category]);
         itemName = data.cell[(int)ItemIndex.Name];

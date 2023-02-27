@@ -13,9 +13,13 @@ MonoBehaviour:
   m_Name: ID 12
   m_EditorClassIdentifier: 
   itemSprite: {fileID: 0}
-  category: 0
-  itemId: 0
-  maxStackAbleCount: 32
-  itemName: "\uC544\uC774\uD15C \uC774\uB984"
-  itemDesc: "\uC544\uC774\uD15C \uC124\uBA85"
-  dropWeight: 1
+  category: 2
+  itemId: 12
+  maxStackAbleCount: 10
+  itemName: "\uBB3C\uBCD1"
+  itemDesc: "\uAEA0\uB057\uD55C \uBB3C\uC740 \uC0DD\uC874\uC758 \uD544\uC218\uD488\uC774\uB2E4.
+    \uC694\uB9AC, \uC57D \uB4F1 \uC218\uB9CE\uC740 \uACF3\uC5D0 \uC4F0\uC774\uB294
+    \uB9CC\uD07C \uB2E4 \uB5A8\uC5B4\uC9C8\uC77C \uC5C6\uAC8C \uD574\uC57C\uD560
+    \uAC83\uC774\uB2E4."
+  dropWeight: 5
+  temp: 1
